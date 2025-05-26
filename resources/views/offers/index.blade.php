@@ -13,8 +13,8 @@ Page offres
                 <article>
                     <div class="row">
                         <div class="col-9">
-                            <h3 class="post-category text-upper"><a href="{{ route('offres.show', $offre->id) }}">{{ $offre->titre }}</a></h3>
-                            <h4 class="post-society text-upper"><a href="{{ route('offres.show', $offre->id) }}">{{ $offre->entreprise }}</a></h4>
+                            <h3 class="post-category text-upper"><a href="{{ route('offers.show', $offre->id) }}">{{ $offre->titre }}</a></h3>
+                            <h4 class="post-society text-upper"><a href="{{ route('offers.show', $offre->id) }}">{{ $offre->entreprise }}</a></h4>
                             <p class="local-icon">
                                 <i class="fas fa-map-marker-alt"></i>{{ $offre->localisation }} ~
                                 <a href="offres-details.html" class="text-upper">{{ $offre->contrat }}</a>
