@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('offres', function (Blueprint $table) {
+        Schema::table('offers', function (Blueprint $table) {
             $table->enum('status', ['en attente', 'validee', 'refusee'])->default('en attente');
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('offres', function (Blueprint $table) {
+        Schema::table('offers', function (Blueprint $table) {
             $table->dropColumn('status');
         });
     }
