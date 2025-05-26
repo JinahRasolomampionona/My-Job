@@ -1,0 +1,220 @@
+/* only small desktops */
+/* tablets */
+@media (min-width: 992px) and (max-width: 1190px) {
+    .home-img {
+        width: 100%;
+        height: 40vh;
+    }
+
+    form .input-group {
+        width: 90%;
+    }
+
+
+
+}
+
+/* only small tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+    .home-img {
+        width: 100%;
+        height: 40vh;
+        padding: 5rem 3rem;
+    }
+
+    .home h1 {
+        font-size: 2rem;
+        padding-top: 3rem;
+    }
+
+    form .input-group {
+        width: 100%;
+    }
+
+    .section-title {
+        margin: 0;
+    }
+
+    .section-title h2 {
+        font-size: 1.7rem;
+        margin: 2.5rem 0;
+    }
+
+    /*Offres-section*/
+    .offres article {
+        padding: 1.2rem 2rem;
+    }
+
+    .offres .post-category,
+    .offres .post-society {
+        font-size: 1rem;
+    }
+
+    .offres .date-create {
+        padding: .5rem;
+        width: 55%;
+        border-radius: 5px;
+        color: var(--color-white);
+    }
+
+    /*Job-section*/
+    .job .section-title {
+        padding-top: 2rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .job .job-content {
+        padding: 1.5rem 1rem !important;
+    }
+
+    .job .job-img img {
+        width: 100%;
+        height: 400px;
+    }
+
+    .job .box-2 {
+        margin: 0 !important;
+    }
+
+    /*Pages-section*/
+    .pages .boxes {
+        padding: 2rem;
+        width: 100%;
+        height: 100%;
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    /*Outils-section*/
+    .outils .job-content {
+        padding: 1.5rem !important;
+    }
+
+    .outils .job-img img {
+        width: 100%;
+        height: 400px;
+        object-fit: contain;
+    }
+
+    /*Footer*/
+    .footer .social-icons {
+        padding-top: 1rem;
+    }
+
+}
+
+/* mobile or only mobile */
+@media (max-width: 767px) {
+    .home-img {
+        width: 100%;
+        height: 40vh;
+        padding: 5rem 3rem;
+        border-radius: 7px;
+    }
+
+    .home h1 {
+        font-size: 2rem;
+        padding-top: 3rem;
+    }
+
+    form .input-group {
+        width: 100%;
+    }
+
+    form .input-group .form-control {
+        padding: .5rem;
+        outline: none !important;
+    }
+
+    .section-title {
+        margin: 0;
+    }
+
+    .section-title h2 {
+        font-size: 1.6rem;
+        margin: 2.5rem 0;
+    }
+
+    /*Offres-section*/
+    .offres .post-category,
+    .offres .post-society {
+        font-size: 1rem;
+    }
+
+    .offres .date-create {
+        padding: .5rem;
+        width: 37%;
+        border-radius: 5px;
+        color: var(--color-white);
+    }
+
+    /*Job-section*/
+    .job .section-title {
+        padding-top: 2rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .job .job-content {
+        padding: 1.5rem 1rem !important;
+    }
+
+    .job .job-img img {
+        width: 100%;
+        height: 300px;
+    }
+
+    .job .box-2 {
+        margin: 0 !important;
+    }
+
+    /*Pages-section*/
+    .pages .boxes {
+        padding: 2rem;
+        height: 100%;
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    /*Outils-section*/
+    .outils .job-content {
+        padding: 1.5rem !important;
+    }
+
+    .outils .job-img img {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+    }
+
+    /*Footer*/
+    .footer .social-icons {
+        padding-top: 1rem;
+    }
+
+    /*ProfilCandidat*/
+    .profil .card {
+        width: 100% !important;
+    }
+
+    /*ShowprofilRecruteur*/
+    .profilshow .card {
+        width: 100% !important;
+    }
+
+    .profilshow .bg-numero {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .profilshow .bg-numero .numero {
+        padding: 1rem;
+        border-radius: 50%;
+        width: 20%;
+    }
+
+    .profilshow .icons {
+        display: flex;
+        justify-content: start !important;
+    }
+
+}
