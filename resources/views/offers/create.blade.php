@@ -10,7 +10,7 @@ Creation offres
         <div class="row">
             <div class="col-md-6">
                 <h1>Inserer des offres</h1>
-                <form method="post" action="{{ route('offres.store') }}">
+                <form method="post" action="{{ route('offers.store') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="" class="form-label">Titre</label>

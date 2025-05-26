@@ -24,8 +24,8 @@ Details offres
 
                             </div><!-- End post content -->
                             <div class="d-flex">
-                                {{-- <a href="{{ route('offres.edit', $offresView->id) }}" class="btn btn-primary mr-1">Editer</a>
-                                <form action="{{ route('offres.destroy', $offresView->id) }}" method="post">
+                                {{-- <a href="{{ route('offers.edit', $offresView->id) }}" class="btn btn-primary mr-1">Editer</a>
+                                <form action="{{ route('offers.destroy', $offresView->id) }}" method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Supprimer</button>
                                 </form> --}}

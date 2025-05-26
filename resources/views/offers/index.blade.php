@@ -6,7 +6,7 @@ Page offres
 @section('content-section')
 <div class="container offres">
     <div class="page-offre">
-        <a href="{{ route('offres.create') }}" class="btn-click">Creer une offre</a>
+        <a href="{{ route('offers.create') }}" class="btn-click">Creer une offre</a>
         <div class="row gy-4 my-2">
             @foreach ($offresView as $offre)
             <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">

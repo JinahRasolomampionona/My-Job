@@ -9,7 +9,7 @@ Modifier offres
         <div class="row">
             <div class="col-md-6">
                 <h1>Modifier offres</h1>
-                <form method="post" action="{{ route('offres.update', $offresView->id) }}">
+                <form method="post" action="{{ route('offers.update', $offresView->id) }}">
                     @csrf
                     @method('PUT') <!-- Ajout de la méthode PUT -->
                     <div class="mb-3">
@@ -38,7 +38,7 @@ Modifier offres
                         <input type="hidden" name="description" id="hidden-description" value="{{ old('description', $offresView->description) }}"> <!-- Stocke le HTML -->
                     </div>
                     <button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
-                    <a href="{{ route('offres.index') }}" class="btn btn-success">Annuler</a>
+                    <a href="{{ route('offers.index') }}" class="btn btn-success">Annuler</a>
                 </form>
             </div>
         </div>
