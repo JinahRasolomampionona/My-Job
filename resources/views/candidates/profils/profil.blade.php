@@ -52,7 +52,7 @@ Creation profil
             </div>
         </div>
         <!-- The Modal -->
-        @include('candidates.profiles.create')
+        @include('candidates.profils.create')
 
 
         <div class="card">

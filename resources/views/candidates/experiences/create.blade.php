@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" name="inserer">Inserer</button>
-                    <a href="{{ route('candidates.profiles.profil') }}" class="btn btn-success">Annuler</a>
+                    <a href="{{ route('candidates.profils.profil') }}" class="btn btn-success">Annuler</a>
                 </form>
             </div>
         </div>

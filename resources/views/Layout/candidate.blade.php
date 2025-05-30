@@ -282,7 +282,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('candidats.candidat') }}"> A propos </a>
+                                <a class="nav-link" href="{{ route('candidates.candidate') }}"> A propos </a>
                             </li>
                         </ul>
                     </nav>
