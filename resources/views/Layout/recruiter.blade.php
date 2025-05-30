@@ -20,7 +20,7 @@
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="{{ route('recruteurs.recruteur') }}" class="logo-page">
+                    <a href="{{ route('recruiters.recruiter') }}" class="logo-page">
                         <img src="{{ Vite::asset('resources/images/job-admin.png') }}" alt="navbar brand" class="navbar-brand"
                             width="70%" height="auto" />
                     </a>
@@ -42,7 +42,7 @@
                 <div class="sidebar-content">
                     <ul class="nav nav-secondary">
                         <li class="nav-item active">
-                            <a href="{{ route('recruteurs.recruteur') }}">
+                            <a href="{{ route('recruiters.recruiter') }}">
                                 <i class="fas fa-home"></i>
                                 <p>Page recruteur</p>
                             </a>
@@ -54,13 +54,13 @@
                             <h4 class="text-section">Composants</h4>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('recruteurs.offres.index') }}">
+                            <a href="{{ route('recruiters.offers.index') }}">
                                 <i class="fas fa-layer-group"></i>
                                 <p>Gestion des offres</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('recruteurs.profils.index') }}">
+                            <a href="{{ route('recruiters.profils.index') }}">
                                 <i class="fas fa-users"></i>
                                 <p>Voir les profils</p>
                             </a>
@@ -83,7 +83,7 @@
                 <div class="main-header-logo">
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
-                        <a href="{{ route('recruteurs.recruteur') }}" class="logo-page">
+                        <a href="{{ route('recruiters.recruiter') }}" class="logo-page">
                             <img src="{{ Vite::asset('resources/images/job-admin.png') }}" alt="navbar brand" class="navbar-brand"
                                 width="60%" height="60%" />
                         </a>
@@ -277,7 +277,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('recruteurs.recruteur') }}"> A propos </a>
+                                <a class="nav-link" href="{{ route('recruiters.recruiter') }}"> A propos </a>
                             </li>
                         </ul>
                     </nav>

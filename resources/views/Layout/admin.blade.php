@@ -54,19 +54,19 @@
                             <h4 class="text-section">Components</h4>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.recruteurs') }}">
+                            <a href="{{ route('admin.recruiters') }}">
                                 <i class="fas fa-user-check"></i>
                                 <p>Liste des recruteurs</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.candidats') }}">
+                            <a href="{{ route('admin.candidates') }}">
                                 <i class="fas fa-users"></i>
                                 <p>Listes des candidats</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.offres.index') }}">
+                            <a href="{{ route('admin.offers.index') }}">
                                 <i class="fas fa-pen-square"></i>
                                 <p>Validation offres</p>
                             </a>

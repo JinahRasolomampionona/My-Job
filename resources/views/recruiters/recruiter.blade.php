@@ -13,7 +13,7 @@ Page recruteur
             </div>
             <div class="ms-md-auto py-2 py-md-0">
                 <a href="{{ route('recruiters.offers.index') }}" class="btn btn-success btn-round me-2">Offres</a>
-                <a href="{{ route('recruiters.profiles.index') }}" class="btn btn-primary btn-round">Profils</a>
+                <a href="{{ route('recruiters.profils.index') }}" class="btn btn-primary btn-round">Profils</a>
             </div>
         </div>
         <div class="row">

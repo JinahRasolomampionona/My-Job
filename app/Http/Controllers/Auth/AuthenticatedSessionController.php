@@ -50,8 +50,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
-        // dd(method_exists($user, "hasRole"));
-
+        
         if ($user->hasRole('admin')) {
             return redirect()->route('admin.index');
         } elseif ($user->hasRole('recruteur')) {

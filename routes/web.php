@@ -56,7 +56,7 @@ Route::post('/recruteurs/offre/store', [OfferListController::class, 'store'])->n
 Route::post('/recruteurs/offre/{offre}/update', [OfferListController::class, 'update'])->name('recruiters.offers.update');
 Route::post('/recruteurs/offre/{offre}/destroy', [OfferListController::class, 'destroy'])->name('recruiters.offers.destroy');
 
-Route::get('/recruteur/profils', [ProfilViewController::class, 'index'])->name('recruiters.profiles.index');
+Route::get('/recruteur/profils', [ProfilViewController::class, 'index'])->name('recruiters.profils.index');
 Route::get('/recruteur/profil/{user}/details', [ProfilViewController::class, 'show'])->name('recruiters.profiles.show');
 
 //Route Page Candidat
@@ -66,13 +66,13 @@ Route::get('/candidat/offre/{offre}/details', [OfferViewController::class, 'show
 Route::get('/Page-candidat', [CandidatePageController::class, 'index'])->name('candidates.candidate');
 
 // Route Profil
-Route::get('/candidats/profils', [ProfilController::class, 'index'])->name('candidates.profiles.profil');
-Route::get('/candidats/profil/{user}/details', [ProfilController::class, 'show'])->name('candidates.profiles.show');
-Route::get('/candidats/profil/creation-profils', [ProfilController::class, 'create'])->name('candidates.profiles.create');
-Route::get('/candidats/profil/{profil}/editer-profils', [ProfilController::class, 'edit'])->name('candidates.profiles.edit');
-Route::post('/candidats/profil/store', [ProfilController::class, 'store'])->name('candidates.profiles.store');
-Route::post('/candidats/profil/{profil}/update', [ProfilController::class, 'update'])->name('candidates.profiles.update');
-Route::post('/candidats/profil/{profil}/destroy', [ProfilController::class, 'destroy'])->name('candidates.profiles.destroy');
+Route::get('/candidats/profils', [ProfilController::class, 'index'])->name('candidates.profils.profil');
+Route::get('/candidats/profil/{user}/details', [ProfilController::class, 'show'])->name('candidates.profils.show');
+Route::get('/candidats/profil/creation-profils', [ProfilController::class, 'create'])->name('candidates.profils.create');
+Route::get('/candidats/profil/{profil}/editer-profils', [ProfilController::class, 'edit'])->name('candidates.profils.edit');
+Route::post('/candidats/profil/store', [ProfilController::class, 'store'])->name('candidates.profils.store');
+Route::post('/candidats/profil/{profil}/update', [ProfilController::class, 'update'])->name('candidates.profils.update');
+Route::post('/candidats/profil/{profil}/destroy', [ProfilController::class, 'destroy'])->name('candidates.profils.destroy');
 
 //Route formation
 Route::get('/candidats/formations', [FormationController::class, 'index'])->name('candidates.formations.index');
@@ -107,8 +107,8 @@ Route::post('/admin/offre/{offre}/valider', [ValidationOfferController::class, '
 Route::post('/admin/offre/{offre}/refuser', [ValidationOfferController::class, 'refuser'])->name('admin.offre.refuser');
 
 //Validation Profil
-Route::get('/admin/profils', [ValidationProfilController::class, 'index'])->name('admin.profiles.index');
-Route::get('/admin/profil/{user}/details', [ValidationProfilController::class, 'show'])->name('admin.profiles.show');
+Route::get('/admin/profils', [ValidationProfilController::class, 'index'])->name('admin.profils.index');
+Route::get('/admin/profil/{user}/details', [ValidationProfilController::class, 'show'])->name('admin.profils.show');
 
 //Recherche
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');

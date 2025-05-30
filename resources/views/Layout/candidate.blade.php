@@ -20,7 +20,7 @@
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="{{ route('candidats.candidat') }}" class="logo-page">
+                    <a href="{{ route('candidates.candidate') }}" class="logo-page">
                         <img src="{{ Vite::asset('resources/images/job-admin.png') }}" alt="navbar brand"
                             class="navbar-brand" width="70%" height="auto" />
                     </a>
@@ -42,7 +42,7 @@
                 <div class="sidebar-content">
                     <ul class="nav nav-secondary">
                         <li class="nav-item active">
-                            <a href="{{ route('candidats.candidat') }}">
+                            <a href="{{ route('candidates.candidate') }}">
                                 <i class="fas fa-home"></i>
                                 <p>Page candidat</p>
                             </a>
@@ -54,13 +54,13 @@
                             <h4 class="text-section">Composants</h4>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('candidats.profils.profil') }}">
+                            <a href="{{ route('candidates.profils.profil') }}">
                                 <i class="fas fa-pen-square"></i>
                                 <p>Créer un profil</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('candidats.offres.index') }}">
+                            <a href="{{ route('candidates.offers.index') }}">
                                 <i class="fas fa-th-list"></i>
                                 <p>Voir les offres d'emploi</p>
                             </a>
@@ -83,7 +83,7 @@
                 <div class="main-header-logo">
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
-                        <a href="{{ route('candidats.candidat') }}" class="logo-page">
+                        <a href="{{ route('candidates.candidate') }}" class="logo-page">
                             <img src="{{ Vite::asset('resources/images/job-admin.png') }}" alt="navbar brand"
                                 class="navbar-brand" width="70%" height="70%" />
                         </a>

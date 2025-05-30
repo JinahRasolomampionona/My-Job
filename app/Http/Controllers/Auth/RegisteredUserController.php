@@ -29,7 +29,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -56,7 +55,7 @@ class RegisteredUserController extends Controller
         $user->assignRole($request->input('role'));
         event(new Registered($user));
         
-
+        // dd($user);
         // Auth::login($user);
 
         // return redirect(route('index', absolute: false))->with('user-register', "Bienvenu sur le site!");
