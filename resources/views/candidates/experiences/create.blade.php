@@ -108,8 +108,17 @@
                                 <label for="" class="form-label">Année d'expériences</label>
                             </div>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" name="anneeExperience" id="anneeExperience"
-                                    placeholder="ex: 1 an d'expériences" required>
+                                <select name="anneeExperience" id="anneeExperience">
+                                    <option value="Année">Année</option>
+                                    <option value="1an">1an</option>
+                                    <option value="2ans">2ans</option>
+                                    <option value="3ans">3ans</option>
+                                    <option value="4ans">4ans</option>
+                                    <option value="5ans">5ans</option>
+                                    <option value="6ans">6ans</option>
+                                </select>
+                                <!-- <input type="text" class="form-control" name="anneeExperience" id="anneeExperience"
+                                    placeholder="ex: 1 an d'expériences" value="{{ old('anneeExperience') }}" required> -->
                                 @error('anneeExperience')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -123,7 +132,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="societe" id="societe"
-                                    placeholder="Votre ancien société" required>
+                                    placeholder="Votre ancien société" value="{{ old('societe') }}" required>
                                 @error('societe')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -137,7 +146,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="posteExperience" id="poste"
-                                    placeholder="Votre poste" required>
+                                    placeholder="Votre poste" value="{{ old('posteExperience') }}" required>
                                 @error('posteExperience')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -151,7 +160,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <textarea name="descriptionExperience" class="form-control" id="" placeholder="Description" cols="30"
-                                    rows="10"></textarea>
+                                    rows="10">{{ old('descriptionExperience') }}</textarea>
                                 @error('descriptionExperience')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror

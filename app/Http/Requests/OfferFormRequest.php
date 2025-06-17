@@ -24,10 +24,10 @@ class OfferFormRequest extends FormRequest
         return [
             'titre' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:50',
             'entreprise' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:50',
-            'contrat' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:20',
+            'contrat' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:3|max:20',
             'localisation' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:50',
-            'domaine' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:50',
-            'description' => 'required|string|min:30|max:255',
+            'domaine' => 'required|string|min:5|max:50',
+            'description' => 'required|string|min:30|max:5000',
         ];
     }
 

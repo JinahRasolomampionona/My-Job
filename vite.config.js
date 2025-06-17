@@ -15,6 +15,7 @@ export default defineConfig({
                 'resources/css/kaiadmin.min.css',
                 'resources/css/demo.css',
                 'resources/css/login.css',
+                'resources/css/sidebar.css',
                 'resources/librairies/setting-demo.js',
             ],
             refresh: true,

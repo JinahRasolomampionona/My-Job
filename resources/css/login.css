@@ -59,7 +59,7 @@
     left: -50%;
     width: 380px;
     height: 420px;
-    background: linear-gradient(0deg, transparent, transparent, #ff2770, #ff2770, #ff2770);
+    background: linear-gradient(0deg, transparent, transparent, #0f5da7, #0f5da7, #0f5da7);
     z-index: 1;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
@@ -74,7 +74,7 @@
     left: -50%;
     width: 380px;
     height: 420px;
-    background: linear-gradient(0deg, transparent, transparent, #ff2770, #ff2770, #ff2770);
+    background: linear-gradient(0deg, transparent, transparent, #0f5da7, #0f5da7, #0f5da7);
     z-index: 1;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
@@ -95,7 +95,7 @@
 .box form{
     position: absolute;
     inset: 4px;
-    background: #222;
+    background: #040b14;
     padding: 50px 40px;
     border-radius: 8px;
     z-index: 2;

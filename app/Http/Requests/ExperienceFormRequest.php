@@ -29,7 +29,7 @@ class ExperienceFormRequest extends FormRequest
             'anneeExperience' => 'nullable|string|max:50',
             'societe' => 'required|string|max:150',
             'posteExperience' => 'required|string|max:100',
-            'descriptionExperience' => 'nullable|string|min:10|max:255',
+            'descriptionExperience' => 'nullable|string|min:10|max:900',
         ];
     }
 

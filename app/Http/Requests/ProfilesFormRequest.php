@@ -22,10 +22,10 @@ class ProfilesFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'poste' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
-            'etude' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
-            'experience' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
-            'civilite' => 'required|in:Monsieur,Madame',
+            'poste' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:400',
+            'etude' => 'required|string|regex:/^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/|max:100',
+            'experience' => 'required|string|regex:/^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/|max:100',
+            'civilite' => 'required|string',
             'nom' => 'required|string|max:50|regex:/^[\pL\s\-]+$/u',
             'prenom' => 'required|string|max:50|regex:/^[\pL\s\-]+$/u',
             'naissance' => 'required|date',

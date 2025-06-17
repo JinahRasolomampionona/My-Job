@@ -34,11 +34,12 @@ class OfferListController extends Controller
         $offres->description = $request->input('description');
         $offres->status = 'en attente';
         $offres->user_id = Auth::id();
+        $offres->is_urgent = $request->has('is_urgent');
         $offres->save();
 
-       
 
-        return redirect()->route('recruiters.offers.index');
+
+        return redirect()->route('recruiters.offers.index')->with('success', 'Offre en attente de validation.');
     }
 
     public function show(Offers $offre)

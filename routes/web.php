@@ -19,6 +19,7 @@ use App\Http\Controllers\Recruiters\OfferListController;
 use App\Http\Controllers\Recruiters\ProfilViewController;
 use App\Http\Controllers\Recruiters\RecruiterPageController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/dashboard', function () {
@@ -57,7 +58,7 @@ Route::post('/recruteurs/offre/{offre}/update', [OfferListController::class, 'up
 Route::post('/recruteurs/offre/{offre}/destroy', [OfferListController::class, 'destroy'])->name('recruiters.offers.destroy');
 
 Route::get('/recruteur/profils', [ProfilViewController::class, 'index'])->name('recruiters.profils.index');
-Route::get('/recruteur/profil/{user}/details', [ProfilViewController::class, 'show'])->name('recruiters.profiles.show');
+Route::get('/recruteur/profil/{user}/details', [ProfilViewController::class, 'show'])->name('recruiters.profils.show');
 
 //Route Page Candidat
 Route::get('/candidat/offres', [OfferViewController::class, 'index'])->name('candidates.offers.index');
@@ -115,6 +116,7 @@ Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
 //Email
 Route::get('/sendEmail', [GmailController::class, 'send'])->name('gmail.send');
+
 
 
 

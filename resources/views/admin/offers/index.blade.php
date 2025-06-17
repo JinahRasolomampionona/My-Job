@@ -15,6 +15,10 @@ Page offres
                             <span class="badge status @if ($offre->status === 'en attente') bg-warning @endif">
                                 {{ $offre->status }}
                             </span>
+                            <span
+                                class="badge urgent @if ($offre->is_urgent) bg-danger @endif">
+                                urgent
+                            </span>
                             <h3 class="post-category text-upper"><a
                                     href="{{ route('admin.offers.show', $offre) }}">{{ $offre->titre }}</a></h3>
                             <h4 class="post-society text-upper"><a

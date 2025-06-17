@@ -8,7 +8,7 @@ Page d'accueil
 <section class="home">
     <div class="container-fluid">
         <div class="home-img" data-aos="flip-left" data-aos-duration="2000">
-            <h1>Notre job, vous aider à choisir le vôtre parmi <strong>755,827 offres</strong></h1>
+            <h1 class="" id="title"></h1>
         </div>
         <form action="{{ route('search.index') }}" method="get">
             <div class="input-group mb-3">
@@ -34,6 +34,10 @@ Page d'accueil
                 <article>
                     <div class="row">
                         <div class="col-9">
+                            <span
+                                class="badge @if ($offre->is_urgent) bg-danger @endif">
+                                urgent
+                            </span>
                             <h3 class="post-category text-upper"><a
                                     href="{{ route('offers.show', $offre->id) }}">{{ $offre->titre }}</a></h3>
                             <h4 class="post-society text-upper"><a

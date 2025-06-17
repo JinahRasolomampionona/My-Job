@@ -8,15 +8,15 @@ Page recruteur
     <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div>
-                <h3 class="fw-bold mb-3">Espace Recruteur</h3>
-                <h6 class="op-7 mb-2">Listes des statistiques</h6>
+                <h3 class="fw-bold mb-4">Espace Recruteur</h3>
+                <h6 class="op-7 mb-4">Listes des statistiques</h6>
             </div>
             <div class="ms-md-auto py-2 py-md-0">
                 <a href="{{ route('recruiters.offers.index') }}" class="btn btn-success btn-round me-2">Offres</a>
                 <a href="{{ route('recruiters.profils.index') }}" class="btn btn-primary btn-round">Profils</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row stats">
             <div class="col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
                     <div class="card-body">
@@ -26,7 +26,7 @@ Page recruteur
                                     <i class="fas fa-luggage-cart"></i>
                                 </div>
                             </div>
-                            <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="col col-stats">
                                 <div class="numbers">
                                     <p class="card-category">Offres</p>
                                     <h4 class="card-title">{{ $totalOffres }}</h4>

@@ -15,6 +15,7 @@ class ValidationProfilController extends Controller
     {
         //
         $candidats = User::role('candidat')
+            -> where('status', 'en attente')
             ->get();
         return view('admin.profils.index', ['candidats' => $candidats]);
     }

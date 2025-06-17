@@ -16,7 +16,7 @@ Page candidat
                 <a href="{{ route('candidates.offers.index') }}" class="btn btn-success btn-round me-2">Offres</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row stats">
             <div class="col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
                     <div class="card-body">

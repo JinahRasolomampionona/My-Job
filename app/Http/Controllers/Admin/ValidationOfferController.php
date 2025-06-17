@@ -13,8 +13,10 @@ class ValidationOfferController extends Controller
      */
     public function index()
     {
-        //
-        $offre = Offers::where('status', 'en attente')->get();
+        // $offre = Offers::where('status', 'en attente')->get();
+        // $offre = Offers::orderBy('status')->get();
+        $offre = Offers::where('status', 'en attente')
+                        ->get();
         return view('admin.offers.index', ['offresView' => $offre]);
     }
 

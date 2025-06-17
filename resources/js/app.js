@@ -53,15 +53,61 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-import $ from 'jquery';
-// import 'malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css';
-// import 'malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar';
+let title = document.getElementById('title');
+let i = 0;
+setInterval(() => {
 
-// $(document).ready(function () {
-//     $(".scrollbar-container").mCustomScrollbar({
-//         theme: "dark" // Tu peux changer le thème (light, minimal, etc.)
-//     });
-// });
+    const mot = "Notre job, vous aider à choisir le vôtre parmi 150,77 offres";
+
+    let span = document.createElement('span');
+
+    span.innerText = mot.charAt(i);
+    title.append(span);
+    i++;
+
+    if (i > mot.length) {
+        title.style.borderRight = 'none';
+    }
+}, 100)
+
+/*Collapse sidebar*/
+const toggleSidebar = document.getElementById('toggleSidebar');
+const sidebar = document.getElementById('sidebar');
+const topNavbar = document.getElementById('topNavbar');
+const contentWrapper = document.getElementById('contentWrapper');
+
+toggleSidebar.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+    topNavbar.classList.toggle('collapsed');
+    contentWrapper.classList.toggle('collapsed');
+});
+
+// Ouvrir/Fermer le sidebar au clic du bouton (hamburger)
+document.getElementById('toggleSidebar').addEventListener('click', function () {
+    document.querySelector('.sidebar').classList.toggle('show');
+});
+
+// Fermer le sidebar lorsqu'un lien est cliqué (en version mobile)
+const sidebarLinks = document.querySelectorAll('.sidebar');
+
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', function () {
+        if (window.innerWidth < 768) {
+            document.querySelector('.sidebar').classList.remove('show');
+        }
+    });
+});
+
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+popoverTriggerList.forEach(popoverTriggerEl => {
+    new bootstrap.Popover(popoverTriggerEl);
+});
+
+// Activer les tooltips Bootstrap
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+tooltipTriggerList.forEach(t => new bootstrap.Tooltip(t));
+
+import $ from 'jquery';
 
 import Alpine from 'alpinejs';
 

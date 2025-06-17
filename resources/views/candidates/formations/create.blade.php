@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="diplome" id="diplome"
-                                    placeholder="Votre diplôme" required>
+                                    placeholder="Votre diplôme" value="{{ old('diplome') }}" required>
                                 @error('diplome')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="etablissement" id="etablissement"
-                                    placeholder="Etablissement" required>
+                                    placeholder="Etablissement" value="{{ old('etablissement') }}" required>
                                 @error('etalissement')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <textarea name="descriptionFormation" class="form-control" id="" placeholder="Description" cols="30"
-                                    rows="10"></textarea>
+                                    rows="10">{{ old('descriptionFormation') }}</textarea>
                                 @error('descriptionFormation')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror

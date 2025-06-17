@@ -15,10 +15,14 @@ Page offres
                         <div class="col-10">
                             {{-- @dump($offre->status) --}}
                             <span
-                                class="badge status @if ($offre->status === 'validée') bg-success
+                                class="badge status @if ($offre->status === 'validee') bg-success
                                          @elseif ($offre->status === 'en attente') bg-warning 
                                          @else bg-danger @endif">
                                 {{ $offre->status }}
+                            </span>
+                            <span
+                                class="badge urgent @if ($offre->is_urgent) bg-danger @else bg-transparent @endif">
+                                urgent
                             </span>
                             <h3 class="post-category text-upper"><a
                                     href="{{ route('recruiters.offers.show', $offre) }}">{{ $offre->titre }}</a>

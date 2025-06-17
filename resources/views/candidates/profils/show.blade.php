@@ -33,7 +33,7 @@
                     <div class="d-flex">
                         <a href="{{ route('candidates.profils.edit', $user->profil) }}" class="btn btn-primary mr-1"
                             data-bs-toggle="modal" data-bs-target="#editProfil">Editer</a>
-                        @include('candidates.profiles.edit', $user->profil)
+                        @include('candidates.profils.edit', $user->profil)
                         <form action="{{ route('candidates.profils.destroy', $user->profil) }}" method="post">
                             @csrf
                             <button type="submit" class="btn btn-success"

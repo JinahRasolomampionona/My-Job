@@ -41,7 +41,7 @@ Details offres
                             </div>
                             @else
                             <span
-                                class="badge @if ($offresView->status === 'validée') bg-success @else bg-danger @endif">{{ $offresView->status }}</span>
+                                class="badge @if ($offresView->status === 'validee') bg-success @else bg-danger @endif">{{ $offresView->status }}</span>
                             @endif
                         </article>
                     </div>

@@ -1,0 +1,247 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-heading .logo-sidebar img {
+    width: 70%;
+    height: 70%;
+    margin: auto;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    background-color: #040b14;
+    color: white;
+    z-index: 1030;
+    transition: margin-left 0.3s;
+}
+
+.sidebar.collapsed {
+    margin-left: -260px;
+}
+
+.sidebar a {
+    color: #a8a9b4;
+    padding: 0.75rem 1.5rem;
+    display: block;
+    text-decoration: none;
+}
+
+.sidebar .page {
+    background-color: #149ddd;
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.sidebar .page .i-page {
+    margin-left: 1.5rem;
+}
+
+.sidebar a:hover,
+.sidebar .active>a {
+    color: white;
+}
+
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 260px;
+    right: 0;
+    height: 70px;
+    background-color: white;
+    z-index: 1020;
+    padding: 2.7rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: left 0.3s;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.top-navbar.collapsed {
+    left: 0;
+}
+
+.top-navbar .notification {
+    background-color: #191818;
+    color: #fff;
+    border-radius: 50%;
+    padding: .2rem .4rem;
+    font-size: .6rem;
+    position: relative;
+    top: -13px;
+    right: 9px;
+}
+
+.top-navbar .box-img img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar-footer .box-img img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.sidebar-footer a {
+    color: #fff !important;
+}
+
+.top-navbar .profile-pic {
+    padding-right: 1rem;
+}
+
+.content-wrapper {
+    padding-top: 7rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    transition: margin-left 0.3s;
+}
+
+.content-wrapper.collapsed {
+    margin-left: 0;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 260px;
+    right: 0;
+    background-color: #212529; /* Foncé */
+    color: #ffffff;
+    padding: 1rem 2rem;
+    border-top: 1px solid #343a40;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1020;
+    padding: 1.2rem;
+}
+
+.footer a {
+    color: #ffffff;
+    margin-left: 15px;
+    text-decoration: none;
+    transition: transform 0.3s, color 0.3s;
+    position: relative;
+}
+
+.footer a:hover {
+    color: #0d6efd;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -260px;
+    }
+
+    .sidebar.show {
+        margin-left: 0;
+    }
+
+    .top-navbar {
+        left: 0;
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+    }
+
+    .page-inner {
+        margin-left: 0 !important;
+    }
+
+    .footer {
+        left: 0;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+}
+
+/*Recruteur-Page*/
+.page-inner {
+   margin-top: 1rem;
+   margin-bottom: 7rem;
+   /* margin-left: 10rem; */
+}
+
+.stats .col-icon .icon-big i {
+   background-color: #149ddd;
+   color: #fff;
+   font-size: 1.5rem;
+   padding: 1rem;
+   border-radius: 50%;
+}
+
+.stats .col-stats {
+   margin: auto;
+}
+
+.stats .col-stats p {
+   font-size: 1.3rem;
+   text-align: center;
+   padding-top: 1rem;
+}
+
+.stats .col-stats h4 {
+   font-size: 1.7rem;
+   text-align: center;
+}
+
+.stats .card-stats {
+   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+   border: none !important;
+}
+
+.stats .card-stats:hover {
+   object-fit: scale-down;
+   transition: all ease-in-out 0.2s;
+   box-shadow: 0px 0px 40px #1e0404;
+}
+
+.stats .col-stats .card-category {
+   position: relative;
+}
+
+.stats .col-stats .card-category:before,
+.stats .col-stats .card-category:after {
+ content: "";
+ width: 20px;
+ height: 2px;
+ background: #e47e09;
+ display: inline-block;
+}
+
+.stats .col-stats .card-category:before {
+ margin: 0 5px 5px 0;
+}
+
+.stats .col-stats .card-category:after {
+ margin: 0 0 5px 5px;
+}
+
+.sidebar a.active {
+   color: #fff;
+   border-left: 3px solid #149ddd;
+}
+
+
