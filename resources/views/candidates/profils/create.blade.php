@@ -46,8 +46,17 @@
                                 <label for="" class="form-label">Niveau d'expérience actuel</label>
                             </div>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" name="experience" id="experience"
-                                    placeholder="Niveau d'expérience" value="{{ old('experience') }}" required>
+                                <select name="experience" id="experience">
+                                    <option value="Année">Année</option>
+                                    <option value="1an">1an</option>
+                                    <option value="2ans">2ans</option>
+                                    <option value="3ans">3ans</option>
+                                    <option value="4ans">4ans</option>
+                                    <option value="5ans">5ans</option>
+                                    <option value="6ans">6ans</option>
+                                </select>
+                                <!-- <input type="text" class="form-control" name="experience" id="experience"
+                                    placeholder="Niveau d'expérience" value="{{ old('experience') }}" required> -->
                                 @error('experience')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror

@@ -56,13 +56,12 @@ class OfferListController extends Controller
     {
 
         // Mise à jour de l’offre
-        $offres = new Offers();
-        $offres->titre = $request->input('titre');
-        $offres->entreprise = $request->input('entreprise');
-        $offres->contrat = $request->input('contrat');
-        $offres->localisation = $request->input('localisation');
-        $offres->domaine = $request->input('domaine');
-        $offres->description = $request->input('description');
+        $offre->titre = $request->input('titre');
+        $offre->entreprise = $request->input('entreprise');
+        $offre->contrat = $request->input('contrat');
+        $offre->localisation = $request->input('localisation');
+        $offre->domaine = $request->input('domaine');
+        $offre->description = $request->input('description');
         $offre->save();
 
         return redirect()->route('recruiters.offers.index');

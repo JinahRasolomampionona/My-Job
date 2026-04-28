@@ -66,19 +66,17 @@
         @yield('content-section')
         <footer>
             <div class="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <a class="copyright" href="{{ route('index') }}">
-                                My job
-                            </a>
-                            Copyright <i class="fa fa-heart heart text-danger"></i> 2025
-                        </div>
-                        <div class="social-icons col-lg-6">
-                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-google"></i></a>
-                        </div>
+                <div class="container d-flex justify-content-between footer-content">
+                    <div class="copy">
+                        <a class="copyright" href="{{ route('index') }}">
+                            My job
+                        </a>
+                        Copyright <i class="fa fa-heart heart text-danger"></i> 2025
+                    </div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-google"></i></a>
                     </div>
                 </div>
             </div>
@@ -86,13 +84,13 @@
     </main>
     @vite(['resources/js/app.js'])
     @if (session('showLoginModal'))
-        <script>
-            console.log(document.getElementById('loginname'))
-            document.addEventListener("DOMContentLoaded", function() {
-                var loginModal = new bootstrap.Modal(document.getElementById('loginname'));
-                loginModal.show();
-            });
-        </script>
+    <script>
+        console.log(document.getElementById('loginname'))
+        document.addEventListener("DOMContentLoaded", function() {
+            var loginModal = new bootstrap.Modal(document.getElementById('loginname'));
+            loginModal.show();
+        });
+    </script>
     @endif
     <!-- Bootstrap JS + Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>

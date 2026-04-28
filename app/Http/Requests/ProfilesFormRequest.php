@@ -32,7 +32,7 @@ class ProfilesFormRequest extends FormRequest
             'adresse' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'contact' => 'required|string|regex:/^[0-9\s\-\+\(\)]+$/|min:8|max:20',
-            'descriptionProfil' => 'required|string|min:10|max:255',
+            'descriptionProfil' => 'required|string|min:10|max:1000',
         ];
     }
 

@@ -48,6 +48,7 @@ class ProfilController extends Controller
         $profil->email = $request->input('email');
         $profil->contact = $request->input('contact');
         $profil->descriptionProfil = $request->input('descriptionProfil');
+        // $profil->status = 'en attente';
         $profil->save();
         // Mail::to($request->user())->send(new GmailEmail);
         return redirect()->route('candidates.profils.profil');

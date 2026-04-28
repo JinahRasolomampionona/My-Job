@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // 'recruiter' => [
+        //     'driver' => 'session',
+        //     'provider' => 'recruiters',
+        // ],
+        // 'candidate' => [
+        //     'driver' => 'session',
+        //     'provider' => 'candidates',
+        // ],
     ],
 
     /*
@@ -64,6 +72,14 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+        // 'recruiters' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\Recruiter::class,
+        // ],
+        // 'candidates' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\Candidate::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',

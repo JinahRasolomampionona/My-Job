@@ -14,6 +14,7 @@ Details offres
                 <section id="offre-details" class="offre-details section">
                     <div class="container">
                         <article class="article">
+                            <a href="{{ route('admin.offers.index') }}"><i class="fa fa-chevron-left fleche"></i></a>
                             <h1 class="title">Details offres</h1>
                             <div class="content">
                                 <h2>{{ $offresView->titre }}</h2>

@@ -457,4 +457,8 @@ body[data-background-color="dark"] .demo-icon .icon-class {
   }
 }
 
+.badge {
+  border: none !important;
+}
+
 /*# sourceMappingURL=demo.css.map */

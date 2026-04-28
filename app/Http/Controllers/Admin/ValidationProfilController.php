@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProfilValide;
+use App\Mail\ProfilRefuse;
 
 class ValidationProfilController extends Controller
 {
@@ -15,7 +18,7 @@ class ValidationProfilController extends Controller
     {
         //
         $candidats = User::role('candidat')
-            -> where('status', 'en attente')
+            // ->where('status', 'en attente')
             ->get();
         return view('admin.profils.index', ['candidats' => $candidats]);
     }
@@ -42,13 +45,16 @@ class ValidationProfilController extends Controller
     public function show(User $user)
     {
         //
-        return view('admin.profils.show', ['user'=>$user]);
+        return view('admin.profils.show', ['user' => $user]);
     }
 
     public function valider(User $user)
     {
         $user->status = 'validee';
         $user->save();
+
+        // Envoyer un email au candidat
+        Mail::to($user->email)->send(new ProfilValide($user));
 
         return redirect()->back()->with('message', 'Profil validée');
     }
@@ -57,6 +63,9 @@ class ValidationProfilController extends Controller
     {
         $user->status = 'refusee';
         $user->save();
+
+        // Envoyer un email au candidat
+        Mail::to($user->email)->send(new ProfilRefuse($user));
 
         return redirect()->back()->with('message', 'Profil refusée');
     }

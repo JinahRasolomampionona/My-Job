@@ -12,6 +12,10 @@ Page offres
                 <article>
                     <div class="row">
                         <div class="col-10">
+                            <span
+                                class="badge @if ($offre->is_urgent) bg-danger @endif">
+                                urgent
+                            </span>
                             <h3 class="post-category text-upper"><a
                                     href="{{ route('candidates.offers.show', $offre) }}">{{ $offre->titre }}</a></h3>
                             <h4 class="post-society text-upper"><a

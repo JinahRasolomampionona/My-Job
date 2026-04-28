@@ -111,6 +111,9 @@ Route::post('/admin/offre/{offre}/refuser', [ValidationOfferController::class, '
 Route::get('/admin/profils', [ValidationProfilController::class, 'index'])->name('admin.profils.index');
 Route::get('/admin/profil/{user}/details', [ValidationProfilController::class, 'show'])->name('admin.profils.show');
 
+Route::post('/admin/profils/{user}/valider', [ValidationProfilController::class, 'valider'])->name('admin.profils.valider');
+Route::post('/admin/profils/{user}/refuser', [ValidationProfilController::class, 'refuser'])->name('admin.profils.refuser');
+
 //Recherche
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 

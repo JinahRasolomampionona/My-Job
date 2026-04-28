@@ -9,7 +9,8 @@
     <!-- Fontawesome CSS -->
     @vite(['resources/librairies/fontawesome-free-6.1.1-web/css/all.min.css'])
     <!-- CSS -->
-    @vite(['resources/css/app.css', 'resources/css/global.css', 'resources/css/sidebar.css'])
+    @vite(['resources/css/app.css', 'resources/css/global.css', 'resources/css/sidebar.css', 
+    'resources/css/responsive.css'])
 </head>
 
 <body>
@@ -63,8 +64,8 @@
         <button class="btn btn-outline-secondary" id="toggleSidebar">
             <i class="fas fa-bars"></i>
         </button>
-        <form class="d-flex flex-grow-1 mx-3" style="max-width: 700px;">
-            <input class="form-control me-2" type="search" placeholder="Quel job vous fait vibrer ?">
+        <form class="d-flex flex-grow-1 mx-3" action="{{route('recruiters.profils.index')}}" style="max-width: 700px;">
+            <input class="form-control me-2" type="search" name="search" value="{{request()->query('search')}}" placeholder="Quel job vous fait vibrer ?">
             <input class="form-control me-2" type="search" placeholder="Où voulez-vous briller ?">
             <button class="btn btn-primary" type="submit">Rechercher</button>
         </form>

@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box shadow-lg">
     <span class="borderLine"></span>
     <form action="{{ route('login') }}" method="post">
         @csrf

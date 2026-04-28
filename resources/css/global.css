@@ -632,7 +632,8 @@ form select {
 
 /*ShowprofilRecruteur*/
 .profilshow .card {
-    width: 70% !important;
+    width: 80% !important;
+    margin-bottom: 2rem;
 }
 
 .profilshow .bg-numero {
@@ -755,7 +756,7 @@ div .resume {
     position: relative;
     width: 380px;
     height: 450px;
-    background: #1c1c1c;
+    background: #040b14;
     border-radius: 8px;
     overflow: hidden;
     padding: 10px;
@@ -795,7 +796,7 @@ div .resume {
     left: -50%;
     width: 380px;
     height: 420px;
-    background: linear-gradient(0deg, transparent, transparent, #ff2770, #ff2770, #ff2770);
+    background: linear-gradient(0deg, transparent, transparent, #0f5da7, #0f5da7, #0f5da7);
     z-index: 1;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
@@ -810,7 +811,7 @@ div .resume {
     left: -50%;
     width: 380px;
     height: 420px;
-    background: linear-gradient(0deg, transparent, transparent, #ff2770, #ff2770, #ff2770);
+    background: linear-gradient(0deg, transparent, transparent, #0f5da7, #0f5da7, #0f5da7);
     z-index: 1;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;

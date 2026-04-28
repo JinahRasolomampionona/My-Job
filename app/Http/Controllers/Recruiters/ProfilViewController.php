@@ -11,12 +11,18 @@ class ProfilViewController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $search = $request->input('search');
         $candidats = User::role('candidat')
+            ->when($search, function($query) use ($search){
+                $query->wherehas('profil', function($subquery) use ($search){
+                    $subquery->where('poste', 'like', "%$search%");
+                });
+            })
             ->get();
-        return view('recruiters.profils.index', ['candidats' => $candidats]);
+        return view('recruiters.profils.index', ['candidats' => $candidats, 'search' => $search]);
     }
 
     /**

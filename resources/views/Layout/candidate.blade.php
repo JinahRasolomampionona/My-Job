@@ -9,7 +9,8 @@
     <!-- Fontawesome CSS -->
     @vite(['resources/librairies/fontawesome-free-6.1.1-web/css/all.min.css'])
     <!-- CSS -->
-    @vite(['resources/css/app.css', 'resources/css/global.css', 'resources/css/sidebar.css'])
+    @vite(['resources/css/app.css', 'resources/css/global.css', 'resources/css/sidebar.css',
+    'resources/css/responsive.css'])
 </head>
 
 <body>
@@ -73,8 +74,8 @@
                 data-bs-content="Vous avez 1 nouveau message">
                 <i class="fas fa-envelope"></i>
             </button>
-            <button type="button" class="btn me-2 dropdown-toggle" data-bs-content="2 nouvelles notifications" 
-            id="dropdownNotif" data-bs-toggle="dropdown">
+            <button type="button" class="btn me-2 dropdown-toggle" data-bs-content="2 nouvelles notifications"
+                id="dropdownNotif" data-bs-toggle="dropdown">
                 <i class="fas fa-bell"></i>
                 <span class="notification">2</span>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownNotif">
@@ -86,8 +87,8 @@
                     <li><a class="dropdown-item" href="#"><i class="fas fa-bell"></i> message 2</a></li>
                 </ul>
             </button>
-            <a class="profile-pic d-flex align-items-center dropdown-toggle" href="#" aria-expanded="false" 
-            id="dropdownUser" data-bs-toggle="dropdown">
+            <a class="profile-pic d-flex align-items-center dropdown-toggle" href="#" aria-expanded="false"
+                id="dropdownUser" data-bs-toggle="dropdown">
                 <div class="avatar-sm box-img">
                     <img src="{{ Vite::asset('resources/images/im1.jpg') }}" alt="..."
                         class="avatar-img rounded-circle" />
