@@ -16,6 +16,10 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use HasRoles;
 
+    public const STATUS_EN_ATTENTE = 'en attente';
+    public const STATUS_VALIDEE = 'validee';
+    public const STATUS_REFUSEE = 'refusee';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +54,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    
+
+    protected static function booted(): void
+    {
+        // Les tables liées n'ont pas de clé étrangère en cascade : on nettoie ici
+        static::deleting(function (User $user) {
+            $user->profil()->delete();
+            $user->formations()->delete();
+            $user->experiences()->delete();
+            $user->offers()->delete();
+            $user->notifications()->delete();
+        });
+    }
+
+    /**
+     * Nom de la route de l'espace correspondant au rôle de l'utilisateur.
+     */
+    public function homeRoute(): string
+    {
+        return match (true) {
+            $this->hasRole('admin') => 'admin.index',
+            $this->hasRole('recruteur') => 'recruiters.recruiter',
+            $this->hasRole('candidat') => 'candidates.candidate',
+            default => 'index',
+        };
+    }
 
     public function profil(): HasOne
     {
@@ -65,5 +93,15 @@ class User extends Authenticatable
     public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class, 'user_id');
+    }
+
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offers::class, 'user_id');
+    }
+
+    public function candidatures(): HasMany
+    {
+        return $this->hasMany(Candidature::class, 'user_id');
     }
 }

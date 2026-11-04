@@ -1,4 +1,4 @@
-<div class="modal" id="createProfil">
+<div class="modal fade" tabindex="-1" id="createProfil">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -69,10 +69,10 @@
                                 <label for="" class="form-label">Civilité</label>
                             </div>
                             <div class="col-lg-9">
-                                <select name="civilite" id="">
-                                    <option value="mr">Mr</option>
-                                    <option value="mme">Mme</option>
-                                    <option value="mlle">Mlle</option>
+                                <select name="civilite" class="form-select" id="create-civilite">
+                                    @foreach (["mr" => "Mr", "mme" => "Mme", "mlle" => "Mlle"] as $val => $lib)
+                                        <option value="{{ $val }}" @selected(old("civilite") === $val)>{{ $lib }}</option>
+                                    @endforeach
                                 </select>
                                 @error('civilite')
                                 <small class="text-danger">{{ $message }}</small>

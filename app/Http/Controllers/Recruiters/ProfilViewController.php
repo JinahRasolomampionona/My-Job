@@ -9,68 +9,43 @@ use Illuminate\Http\Request;
 class ProfilViewController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Liste des candidats dont le profil a été validé par l'administrateur.
      */
     public function index(Request $request)
     {
-        //
         $search = $request->input('search');
+
         $candidats = User::role('candidat')
-            ->when($search, function($query) use ($search){
-                $query->wherehas('profil', function($subquery) use ($search){
-                    $subquery->where('poste', 'like', "%$search%");
-                });
+            ->where('status', User::STATUS_VALIDEE)
+            ->whereHas('profil', function ($subquery) use ($search) {
+                if ($search) {
+                    $subquery->where(fn ($q) => $q
+                        ->where('poste', 'like', "%{$search}%")
+                        ->orWhere('nom', 'like', "%{$search}%")
+                        ->orWhere('prenom', 'like', "%{$search}%")
+                        ->orWhere('descriptionProfil', 'like', "%{$search}%"));
+                }
             })
+            ->with('profil')
             ->get();
+
         return view('recruiters.profils.index', ['candidats' => $candidats, 'search' => $search]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Un recruteur peut voir un profil validé, ou celui d'un candidat ayant postulé à ses offres.
      */
-    public function create()
+    public function show(Request $request, User $user)
     {
-        //
-    }
+        $aPostule = $user->candidatures()
+            ->whereHas('offre', fn ($q) => $q->where('user_id', $request->user()->id))
+            ->exists();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        abort_unless(
+            $user->hasRole('candidat') && ($user->status === User::STATUS_VALIDEE || $aPostule),
+            404
+        );
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-        return view('recruiters.profils.show', ['user'=>$user]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('recruiters.profils.show', ['user' => $user]);
     }
 }

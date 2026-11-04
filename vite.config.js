@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/global.css', 
                 'resources/js/app.js',
                 'resources/css/responsive.css',
+                'resources/css/home.css',
                 'resources/css/plugins.min.css',
                 'resources/css/kaiadmin.min.css',
                 'resources/css/demo.css',

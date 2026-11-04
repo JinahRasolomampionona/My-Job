@@ -9,62 +9,37 @@ use Illuminate\Http\Request;
 class OfferViewController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Liste des offres validées, les urgentes en premier.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $offres = Offres::all();
-        $offres = Offers::where('status', 'validee')->get();
+        $titre = $request->string('titre')->trim()->value();
+        $localisation = $request->string('localisation')->trim()->value();
+
+        $offres = Offers::validees()
+            ->when($titre, fn ($q) => $q->where(fn ($q) => $q
+                ->where('titre', 'like', "%{$titre}%")
+                ->orWhere('entreprise', 'like', "%{$titre}%")
+                ->orWhere('domaine', 'like', "%{$titre}%")
+                ->orWhere('contrat', 'like', "%{$titre}%")
+                ->orWhere('description', 'like', "%{$titre}%")))
+            ->when($localisation, fn ($q) => $q->where('localisation', 'like', "%{$localisation}%"))
+            ->orderByDesc('is_urgent')
+            ->latest()
+            ->get();
         return view('candidates.offers.index', ['offresView' => $offres]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Offers $offre)
+    public function show(Request $request, Offers $offre)
     {
-        //
-        return view('candidates.offers.show', ['offresView' => $offre]);
+        abort_unless($offre->isValidee(), 404);
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('candidates.offers.show', [
+            'offresView' => $offre,
+            'dejaPostule' => $request->user()->candidatures()->where('offer_id', $offre->id)->exists(),
+        ]);
     }
 }

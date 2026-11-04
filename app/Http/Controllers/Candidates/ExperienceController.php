@@ -5,91 +5,80 @@ namespace App\Http\Controllers\Candidates;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExperienceFormRequest;
 use App\Models\Experience;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExperienceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Les expériences sont affichées sur la page "Mon profil".
      */
     public function index()
     {
-        $experiences = Experience::all();
-        return view('candidates.profils.profil', ['experiencesView' => $experiences]);
+        return redirect()->route('candidates.profils.profil');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
-        return view('candidates.experiences.create');
+        return redirect()->route('candidates.profils.profil');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ExperienceFormRequest $request)
     {
-        //
         $experience = new Experience();
         $experience->user_id = $request->user()->id;
-        $experience->moisDebut = $request->input('mois-debut');
-        $experience->anneeDebut = $request->input('annee-debut');
-        $experience->moisFin = $request->input('mois-fin');
-        $experience->anneeFin = $request->input('annee-fin');
-        $experience->anneeExperience = $request->input('anneeExperience');
-        $experience->societe = $request->input('societe');
-        $experience->posteExperience = $request->input('posteExperience');
-        $experience->descriptionExperience = $request->input('descriptionExperience');
+        $this->remplir($experience, $request);
         $experience->save();
-        // Mail::to($request->user())->send(new GmailEmail);
-        return redirect()->route('candidates.profils.profil');
+
+        return redirect()->route('candidates.profils.profil')->with('success', 'Expérience ajoutée.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Experience $experience)
     {
-        return view('candidates.experiences.show', ['experience' => $experience]);
+        $this->verifierProprietaire($experience);
+
+        return redirect()->route('candidates.profils.profil');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Experience $experience)
     {
-        //
-        return view('candidates.experiences.edit', ['experience' => $experience]);
+        $this->verifierProprietaire($experience);
+
+        return redirect()->route('candidates.profils.profil');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ExperienceFormRequest $request, Experience $experience)
     {
-        
-        $experience->moisDebut = $request->input('mois-debut');
-        $experience->anneeDebut = $request->input('annee-debut');
-        $experience->moisFin = $request->input('mois-fin');
-        $experience->anneeFin = $request->input('annee-fin');
-        $experience->anneeExperience = $request->input('anneeExperience');
-        $experience->societe = $request->input('societe');
-        $experience->posteExperience = $request->input('posteExperience');
-        $experience->descriptionExperience = $request->input('descriptionExperience');
+        $this->verifierProprietaire($experience);
+
+        $this->remplir($experience, $request);
         $experience->save();
-        return redirect()->route('candidates.profils.profil');
+
+        return redirect()->route('candidates.profils.profil')->with('success', 'Expérience modifiée.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Experience $experience)
     {
-        //
-        $experience ->delete();
-        return redirect()->route('candidates.profils.profil');
+        $this->verifierProprietaire($experience);
+
+        $experience->delete();
+        return redirect()->route('candidates.profils.profil')->with('success', 'Expérience supprimée.');
+    }
+
+    private function remplir(Experience $experience, ExperienceFormRequest $request): void
+    {
+        // Les colonnes sont NOT NULL : les champs facultatifs vides sont enregistrés en chaîne vide
+        $experience->moisDebut = $request->input('mois-debut');
+        $experience->anneeDebut = $request->input('annee-debut');
+        $experience->moisFin = $request->input('mois-fin') ?? '';
+        $experience->anneeFin = $request->input('annee-fin') ?? '';
+        $experience->anneeExperience = $request->input('anneeExperience') ?? '';
+        $experience->societe = $request->input('societe');
+        $experience->posteExperience = $request->input('posteExperience');
+        $experience->descriptionExperience = $request->input('descriptionExperience') ?? '';
+    }
+
+    private function verifierProprietaire(Experience $experience): void
+    {
+        abort_unless((int) $experience->user_id === (int) Auth::id(), 403);
     }
 }

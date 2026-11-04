@@ -25,7 +25,7 @@ class ExperienceFormRequest extends FormRequest
             'mois-debut' => 'required|string|max:20',
             'annee-debut' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
             'mois-fin' => 'nullable|string|max:20',
-            'annee-fin' => 'nullable|digits:4|integer|min:1900|max:' . date('Y'),
+            'annee-fin' => 'nullable|digits:4|integer|min:1900|gte:annee-debut|max:' . date('Y'),
             'anneeExperience' => 'nullable|string|max:50',
             'societe' => 'required|string|max:150',
             'posteExperience' => 'required|string|max:100',
@@ -41,6 +41,7 @@ class ExperienceFormRequest extends FormRequest
             'societe.required' => 'Le nom de la société est requis.',
             'posteExperience.required' => 'Le poste est obligatoire.',
             'descriptionExperience.min' => 'La description doit contenir au moins 10 caractères.',
+            'annee-fin.gte' => "L'année de fin doit être postérieure ou égale à l'année de début.",
         ];
     }
 }

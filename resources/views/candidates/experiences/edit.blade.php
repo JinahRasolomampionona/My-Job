@@ -1,4 +1,4 @@
-<div class="modal" id="editExperience-{{ $experience->id }}">
+<div class="modal fade" tabindex="-1" id="editExperience-{{ $experience->id }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 

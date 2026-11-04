@@ -22,13 +22,13 @@ class ProfilesFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'poste' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:400',
-            'etude' => 'required|string|regex:/^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/|max:100',
-            'experience' => 'required|string|regex:/^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/|max:100',
-            'civilite' => 'required|string',
+            'poste' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|max:255',
+            'etude' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|max:100',
+            'experience' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|max:100',
+            'civilite' => 'required|string|max:20',
             'nom' => 'required|string|max:50|regex:/^[\pL\s\-]+$/u',
             'prenom' => 'required|string|max:50|regex:/^[\pL\s\-]+$/u',
-            'naissance' => 'required|date',
+            'naissance' => 'required|date|before:today',
             'adresse' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'contact' => 'required|string|regex:/^[0-9\s\-\+\(\)]+$/|min:8|max:20',

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png">
     <title>My-Job : @yield('title-section')</title>
     <!-- Fontawesome CSS -->
@@ -51,7 +52,7 @@
                             <span class="sidebar-mini-icon">
                                 <i class="fa fa-ellipsis-h"></i>
                             </span>
-                            <h4 class="text-section">Components</h4>
+                            <h4 class="text-section">Gestion</h4>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.recruiters') }}">
@@ -77,27 +78,12 @@
                                 <p>Validation Profils</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#maps">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <p>Maps</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="maps">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="maps/googlemaps.html">
-                                            <span class="sub-item">Google Maps</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a href="widgets.html">
-                                <i class="fas fa-desktop"></i>
-                                <p>Notification</p>
-                                <span class="badge badge-success">2</span>
+                        @php $adminUnread = auth()->user()->unreadNotifications()->count(); @endphp
+                        <li class="nav-item {{ request()->routeIs('notifications.index') ? 'active' : '' }}">
+                            <a href="{{ route('notifications.index') }}">
+                                <i class="fas fa-bell"></i>
+                                <p>Notifications</p>
+                                <span class="badge badge-success {{ $adminUnread ? '' : 'd-none' }}" data-notif-count>{{ $adminUnread }}</span>
                             </a>
                         </li>
                     </ul>
@@ -135,14 +121,14 @@
                         <nav
                             class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
                             <a href="{{ route('index') }}" class="accueil">Accueil</a>
-                            <div class="input-group">
+                            <form class="input-group" action="{{ route('dashboard.search') }}" method="get" role="search" data-live-search>
                                 <div class="input-group-prepend">
                                     <button type="submit" class="btn btn-search pe-1">
                                         <i class="fa fa-search search-icon"></i>
                                     </button>
                                 </div>
-                                <input type="text" placeholder="Rechercher ..." class="form-control" />
-                            </div>
+                                <input type="text" name="q" value="{{ request()->routeIs('dashboard.search') ? request('q') : '' }}" placeholder="Rechercher dans l'administration..." class="form-control" autocomplete="off" />
+                            </form>
                         </nav>
 
                         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -152,95 +138,15 @@
                                     <i class="fa fa-search"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-search animated fadeIn">
-                                    <form class="navbar-left navbar-form nav-search">
+                                    <form class="navbar-left navbar-form nav-search" action="{{ route('dashboard.search') }}" method="get" role="search" data-live-search>
                                         <div class="input-group">
-                                            <input type="text" placeholder="Search ..." class="form-control" />
+                                            <input type="text" name="q" value="{{ request()->routeIs('dashboard.search') ? request('q') : '' }}" placeholder="Rechercher dans l'administration..." class="form-control" autocomplete="off" />
                                         </div>
                                     </form>
                                 </ul>
                             </li>
-                            <li class="nav-item topbar-icon dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="#" id="messageDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="fa fa-envelope"></i>
-                                </a>
-                                <ul class="dropdown-menu messages-notif-box animated fadeIn"
-                                    aria-labelledby="messageDropdown">
-                                    <li>
-                                        <div class="dropdown-title d-flex justify-content-between align-items-center">
-                                            Messages
-                                            <a href="#" class="small">Mark all as read</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="message-notif-scroll scrollbar-outer">
-                                            <div class="notif-center">
-                                                <a href="#">
-                                                    <div class="notif-img">
-                                                        <img src="{{ Vite::asset('resources/images/im1.jpg') }}"
-                                                            alt="Img Profile" />
-                                                    </div>
-                                                    <div class="notif-content">
-                                                        <span class="subject">Jimmy Denis</span>
-                                                        <span class="block"> How are you ? </span>
-                                                        <span class="time">5 minutes ago</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="see-all" href="javascript:void(0);">See all messages<i
-                                                class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item topbar-icon dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="notification">2</span>
-                                </a>
-                                <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-                                    <li>
-                                        <div class="dropdown-title">
-                                            You have 2 new notification
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="notif-scroll scrollbar-outer">
-                                            <div class="notif-center">
-                                                <a href="#">
-                                                    <div class="notif-icon notif-primary">
-                                                        <i class="fa fa-user-plus"></i>
-                                                    </div>
-                                                    <div class="notif-content">
-                                                        <span class="block"> New user registered </span>
-                                                        <span class="time">5 minutes ago</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="notif-icon notif-success">
-                                                        <i class="fa fa-comment"></i>
-                                                    </div>
-                                                    <div class="notif-content">
-                                                        <span class="block">
-                                                            Rahmad commented on Admin
-                                                        </span>
-                                                        <span class="time">12 minutes ago</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="see-all" href="javascript:void(0);">See all notifications<i
-                                                class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                            <li class="nav-item topbar-icon hidden-caret">
+                                <x-notification-bell />
                             </li>
 
                             <li class="nav-item topbar-user dropdown hidden-caret">
@@ -383,6 +289,7 @@
         </div>
         <!-- End Custom template -->
     </div>
+    <x-flash />
     @vite(['resources/js/app.js'])
     @vite(['resources/librairies/setting-demo.js'])
 </body>

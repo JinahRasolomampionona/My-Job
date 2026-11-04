@@ -5,10 +5,17 @@ Profil candidat
 
 @section('content-section')
 <div class="container profilshow">
-    <div class="page-inner">
-        @foreach ($candidats as $candidat)
+    <div class="page-inner" data-live-results>
+        <h3 class="fw-bold mb-3" data-aos="fade-down">
+            Profils candidats
+            @if ($search)
+                <small class="text-muted fs-6">({{ $candidats->count() }} résultat(s) pour « {{ $search }} »)
+                    <a href="{{ route('recruiters.profils.index') }}" class="ms-1">Réinitialiser</a></small>
+            @endif
+        </h3>
+        @forelse ($candidats as $candidat)
         @if ($candidat->profil)
-        <div class="card">
+        <div class="card" data-aos="fade-up">
             <div class="card-body">
                 <div class="container">
                     <div class="row">
@@ -48,7 +55,9 @@ Profil candidat
             </div>
         </div>
         @endif
-        @endforeach
+        @empty
+        <div class="row"><x-empty-state icon="fa-users" message="Aucun profil validé ne correspond à votre recherche." /></div>
+        @endforelse
     </div>
 </div>
 @endsection

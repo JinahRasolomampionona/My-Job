@@ -20,19 +20,46 @@ Details offres
                                     <i class="fas fa-map-marker-alt"></i>{{ $offre->localisation }} ~
                                     {{ $offre->contrat }}
                                 </p>
-                                <p>
-                                    {!! $offre->description !!}
-                                </p>
+                                    <div class="offer-description">{!! $offre->description_html !!}</div>
                             </div><!-- End post content -->
-                            <div class="d-flex">
-                                <a href="{{ route('recruiters.offers.edit', $offre) }}"
-                                    class="btn btn-primary mr-1">Editer</a>
-                                <form action="{{ route('recruiters.offers.destroy', $offre) }}" method="post">
+                            @php
+                                $statusLabels = ['en attente' => ['En attente de validation', 'bg-warning text-dark'], 'validee' => ['Validée', 'bg-success'], 'refusee' => ['Refusée', 'bg-danger']];
+                                [$label, $badge] = $statusLabels[$offre->status] ?? [$offre->status, 'bg-secondary'];
+                            @endphp
+                            <p>Statut : <span class="badge {{ $badge }}">{{ $label }}</span>
+                                @if ($offre->is_urgent) <span class="badge bg-danger"><i class="fas fa-bolt me-1"></i>Urgent</span> @endif
+                            </p>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('recruiters.offers.edit', $offre) }}" class="btn btn-primary">
+                                    <i class="fas fa-pen me-1"></i>Éditer</a>
+                                <form action="{{ route('recruiters.offers.destroy', $offre) }}" method="post"
+                                    data-confirm="Voulez-vous vraiment supprimer cette offre ?">
                                     @csrf
-                                    <button type="submit" class="btn btn-success"
-                                        onclick="return confirm('Voulez-vous vraiment supprimer cette offre ?');">Supprimer</button>
+                                    <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash me-1"></i>Supprimer</button>
                                 </form>
                             </div>
+
+                            <h4 class="mt-5 mb-3"><i class="fas fa-users text-primary me-2"></i>Candidatures reçues
+                                <span class="badge bg-primary">{{ $offre->candidatures->count() }}</span></h4>
+                            @forelse ($offre->candidatures as $candidature)
+                                <div class="candidature-item" data-aos="fade-up">
+                                    <div class="avatar-initials">{{ mb_strtoupper(mb_substr($candidature->user->name, 0, 1)) }}</div>
+                                    <div class="flex-grow-1">
+                                        <strong>{{ $candidature->user->profil?->prenom }} {{ $candidature->user->profil?->nom ?? $candidature->user->name }}</strong>
+                                        <span class="text-muted">· {{ $candidature->user->profil?->poste }}</span>
+                                        <small class="d-block text-muted">Le {{ $candidature->created_at->format('d/m/Y à H:i') }}</small>
+                                        @if ($candidature->message)
+                                            <p class="mb-0 mt-1 fst-italic">« {{ $candidature->message }} »</p>
+                                        @endif
+                                    </div>
+                                    <div class="d-flex gap-1">
+                                        <a href="{{ route('recruiters.profils.show', $candidature->user) }}" class="btn btn-sm btn-outline-primary">Profil</a>
+                                        <a href="mailto:{{ $candidature->user->email }}" class="btn btn-sm btn-outline-success"><i class="fas fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            @empty
+                                <p class="text-muted"><i class="far fa-folder-open me-1"></i>Aucune candidature pour le moment.</p>
+                            @endforelse
                         </article>
                     </div>
                 </section>

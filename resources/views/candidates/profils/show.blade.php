@@ -1,4 +1,4 @@
-<div class="modal" id="showProfil">
+<div class="modal fade" tabindex="-1" id="showProfil">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 

@@ -12,11 +12,24 @@ class PasswordResetTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_reset_password_link_screen_can_be_rendered(): void
+    public function test_reset_password_link_screen_opens_the_forgot_modal(): void
     {
         $response = $this->get('/forgot-password');
 
-        $response->assertStatus(200);
+        $response->assertRedirect(route('index'));
+        $response->assertSessionHas('openModal', 'forgotname');
+    }
+
+    public function test_reset_password_link_can_be_requested_with_ajax(): void
+    {
+        Notification::fake();
+
+        $user = User::factory()->create();
+
+        $this->postJson('/forgot-password', ['email' => $user->email])->assertOk();
+        $this->postJson('/forgot-password', ['email' => 'inconnu@example.com'])->assertStatus(422);
+
+        Notification::assertSentTo($user, ResetPassword::class);
     }
 
     public function test_reset_password_link_can_be_requested(): void
@@ -65,7 +78,8 @@ class PasswordResetTest extends TestCase
 
             $response
                 ->assertSessionHasNoErrors()
-                ->assertRedirect(route('login'));
+                ->assertRedirect(route('index'))
+                ->assertSessionHas('openModal', 'loginname');
 
             return true;
         });

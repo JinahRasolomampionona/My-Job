@@ -3,21 +3,29 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Crée les rôles et un compte administrateur par défaut.
+     * Mot de passe à changer après la première connexion !
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        foreach (['admin', 'recruteur', 'candidat'] as $role) {
+            Role::findOrCreate($role, 'web');
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        if (! User::where('email', 'admin@myjob.mg')->exists()) {
+            $admin = User::create([
+                'name' => 'Administrateur',
+                'email' => 'admin@myjob.mg',
+                'role' => 'admin',
+                'password' => 'password',
+            ]);
+            $admin->assignRole('admin');
+        }
     }
 }

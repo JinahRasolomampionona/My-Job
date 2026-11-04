@@ -6,9 +6,6 @@ Details offres
 @section('content-section')
 <div class="container">
     <div class="page-inner">
-        @if (session('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
-        @endif
         <div class="row">
             <div class="col-lg-9">
                 <section id="offre-details" class="offre-details section">
@@ -23,27 +20,31 @@ Details offres
                                     <i class="fas fa-map-marker-alt"></i>{{ $offresView->localisation }} ~
                                     {{ $offresView->contrat }}
                                 </p>
-                                <p>
-                                    {!! $offresView->description !!}
-                                </p>
+                                    <div class="offer-description">{!! $offresView->description_html !!}</div>
                             </div><!-- End post content -->
-                            @if ($offresView->status === 'en attente')
-                            <div class="d-flex">
-                                <form action="{{ route('admin.offre.valider', ['offre' => $offresView]) }}"
-                                    method="post">
+                            @php
+                                $statusLabels = ['en attente' => ['En attente', 'bg-warning text-dark'], 'validee' => ['Validée', 'bg-success'], 'refusee' => ['Refusée', 'bg-danger']];
+                                [$label, $badge] = $statusLabels[$offresView->status] ?? [$offresView->status, 'bg-secondary'];
+                            @endphp
+                            <p class="mb-2">Statut : <span class="badge {{ $badge }}">{{ $label }}</span>
+                                @if ($offresView->is_urgent) <span class="badge bg-danger"><i class="fas fa-bolt me-1"></i>Urgent</span> @endif
+                                <span class="text-muted ms-2">Publiée par {{ $offresView->user?->name ?? 'compte supprimé' }}</span>
+                            </p>
+                            <div class="d-flex gap-2">
+                                @if ($offresView->status !== 'validee')
+                                <form action="{{ route('admin.offre.valider', ['offre' => $offresView]) }}" method="post">
                                     @csrf
-                                    <button type="submit" class="btn btn-primary mr-1">Valider</button>
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-check me-1"></i>Valider</button>
                                 </form>
-                                <form action="{{ route('admin.offre.refuser', ['offre' => $offresView]) }}"
-                                    method="post">
+                                @endif
+                                @if ($offresView->status !== 'refusee')
+                                <form action="{{ route('admin.offre.refuser', ['offre' => $offresView]) }}" method="post"
+                                    data-confirm="Refuser cette offre ? Le recruteur sera prévenu par email.">
                                     @csrf
-                                    <button type="submit" class="btn btn-success">Refuser</button>
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-xmark me-1"></i>Refuser</button>
                                 </form>
+                                @endif
                             </div>
-                            @else
-                            <span
-                                class="badge @if ($offresView->status === 'validee') bg-success @else bg-danger @endif">{{ $offresView->status }}</span>
-                            @endif
                         </article>
                     </div>
                 </section>

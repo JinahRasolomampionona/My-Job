@@ -7,6 +7,7 @@ Listes des candidats
 <div class="container liste">
     <div class="page-inner">
         <h2 class="ly-2">Listes des candidats</h2>
+        <div class="table-responsive" data-aos="fade-up">
         <table class="table table-hover text-nowrap">
             <thead>
                 <tr>
@@ -19,32 +20,31 @@ Listes des candidats
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @forelse ($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
-                    @php
-                    $date_creation = new DateTime($user->created_at);
-                    @endphp
-                    <td>{{ $date_creation->format('d-m-Y') }}</td>
+                    <td><span class="badge bg-primary text-capitalize">{{ $user->role }}</span></td>
+                    <td>{{ $user->created_at?->format("d-m-Y") }}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <a href="#" class="icon-link"><i class="fa-solid fa-edit"></i></a>
-                            <form action="{{ route('admin.recruiters.destroy', $user->id) }}" method="POST">
+                            <form action="{{ route('admin.recruiters.destroy', $user->id) }}" method="POST" data-confirm="Supprimer cet utilisateur et toutes ses données ?">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="icon-link" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                <button type="submit" class="icon-link">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
                         </div>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr><td colspan="6" class="text-center text-muted py-4">Aucun utilisateur.</td></tr>
+                @endforelse
             </tbody>
         </table>
+        </div>
 
     </div>
 </div>

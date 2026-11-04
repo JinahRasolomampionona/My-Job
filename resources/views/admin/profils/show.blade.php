@@ -6,6 +6,32 @@ Details profil candidat
 @section('content-section')
 <div class="container">
     <div class="page-inner">
+        @php
+            [$statutLabel, $statutClass] = match ($user->status) {
+                'validee' => ['Validé', 'bg-success'],
+                'refusee' => ['Refusé', 'bg-danger'],
+                default => ['En attente de validation', 'bg-warning text-dark'],
+            };
+        @endphp
+        <div class="d-flex flex-wrap align-items-center gap-2 my-3" data-aos="fade-down">
+            <a href="{{ route('admin.profils.index') }}" class="btn btn-light"><i class="fa fa-chevron-left"></i></a>
+            <span>Statut : <span class="badge {{ $statutClass }}">{{ $statutLabel }}</span></span>
+            <div class="ms-auto d-flex gap-2">
+                @if ($user->status !== 'validee')
+                    <form action="{{ route('admin.profils.valider', $user) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-success"><i class="fas fa-check me-1"></i>Valider</button>
+                    </form>
+                @endif
+                @if ($user->status !== 'refusee')
+                    <form action="{{ route('admin.profils.refuser', $user) }}" method="post"
+                        data-confirm="Refuser ce profil ? Le candidat sera prévenu par email.">
+                        @csrf
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-xmark me-1"></i>Refuser</button>
+                    </form>
+                @endif
+            </div>
+        </div>
         <div class="resume section-bg">
             <div class="container">
                 <div class="row">

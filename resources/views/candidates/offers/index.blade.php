@@ -5,40 +5,20 @@ Page offres
 
 @section('content-section')
 <div class="container offres">
-    <div class="page-inner">
+    <div class="page-inner" data-live-results>
+        <h3 class="fw-bold mb-0" data-aos="fade-down">
+            Offres d'emploi
+            @if (request('titre') || request('localisation'))
+                <small class="text-muted fs-6">({{ $offresView->count() }} résultat(s))
+                    <a href="{{ route('candidates.offers.index') }}" class="ms-1">Réinitialiser</a></small>
+            @endif
+        </h3>
         <div class="row gy-4 my-2">
-            @foreach ($offresView as $offre)
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <article>
-                    <div class="row">
-                        <div class="col-10">
-                            <span
-                                class="badge @if ($offre->is_urgent) bg-danger @endif">
-                                urgent
-                            </span>
-                            <h3 class="post-category text-upper"><a
-                                    href="{{ route('candidates.offers.show', $offre) }}">{{ $offre->titre }}</a></h3>
-                            <h4 class="post-society text-upper"><a
-                                    href="{{ route('candidates.offers.show', $offre) }}">{{ $offre->entreprise }}</a>
-                            </h4>
-                            <p class="local-icon">
-                                <i class="fas fa-map-marker-alt"></i>{{ $offre->localisation }} ~
-                                <a href="offres-details.html" class="text-upper">{{ $offre->contrat }}</a>
-                            </p>
-                            <p>Domaine: {{ $offre->domaine }}</p>
-                            @php
-                            $date_creation = new DateTime($offre->created_at);
-                            @endphp
-                            <p class="date-create">{{ $date_creation->format('d-m-Y') }}</p>
-                        </div>
-                        <div class="col-2 d-flex justify-content-center align-items-center icons">
-                            <a href="{{ route('candidates.offers.show', $offre) }}"><i
-                                    class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            @endforeach
+            @forelse ($offresView as $offre)
+                <x-offer-card :offre="$offre" :url="route('candidates.offers.show', $offre)" :delay="($loop->index % 3) * 100" />
+            @empty
+                <x-empty-state icon="fa-briefcase" message="Aucune offre ne correspond pour le moment." />
+            @endforelse
         </div>
     </div>
 </div>

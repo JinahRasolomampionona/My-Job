@@ -23,8 +23,8 @@ class FormationFormRequest extends FormRequest
     {
         return [
             'annee-scolaire' => 'required|string|min:4|max:20',
-            'diplome' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
-            'etablissement' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:150',
+            'diplome' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|max:100',
+            'etablissement' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|max:150',
             'descriptionFormation' => 'required|string|min:10|max:900',
         ];
     }

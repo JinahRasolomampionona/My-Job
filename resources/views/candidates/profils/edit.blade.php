@@ -1,4 +1,4 @@
-<div class="modal" id="editProfil">
+<div class="modal fade" tabindex="-1" id="editProfil">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -19,7 +19,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="poste" id="poste"
-                                    placeholder="Votre poste" value="{{ $user->profil->poste }}" required>
+                                    placeholder="Votre poste" value="{{ old('poste', $user->profil->poste) }}" required>
                                 @error('poste')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="etude" id="etude"
-                                    placeholder="Niveau d'étude" value="{{ $user->profil->etude }}" required>
+                                    placeholder="Niveau d'étude" value="{{ old('etude', $user->profil->etude) }}" required>
                                 @error('etude')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="experience" id="experience"
-                                    placeholder="Niveau d'expérience" value="{{ $user->profil->experience }}" required>
+                                    placeholder="Niveau d'expérience" value="{{ old('experience', $user->profil->experience) }}" required>
                                 @error('experience')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -60,10 +60,10 @@
                                 <label for="" class="form-label">Civilité</label>
                             </div>
                             <div class="col-lg-9">
-                                <select name="civilite" value="{{ $user->profil->civilite }}" id="">
-                                    <option value="mr">Mr</option>
-                                    <option value="mme">Mme</option>
-                                    <option value="mlle">Mlle</option>
+                                <select name="civilite" class="form-select" id="edit-civilite">
+                                    @foreach (["mr" => "Mr", "mme" => "Mme", "mlle" => "Mlle"] as $val => $lib)
+                                        <option value="{{ $val }}" @selected(old("civilite", $user->profil->civilite) === $val)>{{ $lib }}</option>
+                                    @endforeach
                                 </select>
                                 @error('civilite')
                                 <small class="text-danger">{{ $message }}</small>
@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="nom" id="nom"
-                                    placeholder="Votre nom" value="{{ $user->profil->nom }}" required>
+                                    placeholder="Votre nom" value="{{ old('nom', $user->profil->nom) }}" required>
                                 @error('nom')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -92,7 +92,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="prenom" id="prenom"
-                                    placeholder="Votre prénom" value="{{ $user->profil->prenom }}" required>
+                                    placeholder="Votre prénom" value="{{ old('prenom', $user->profil->prenom) }}" required>
                                 @error('prenom')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -106,7 +106,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="naissance" id="naissance"
-                                    placeholder="Né(e) le" value="{{ $user->profil->naissance }}" required>
+                                    placeholder="Né(e) le" value="{{ old('naissance', $user->profil->naissance) }}" required>
                                 @error('naissance')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -120,7 +120,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="adresse" id="adresse"
-                                    placeholder="Votre adresse" value="{{ $user->profil->adresse }}" required>
+                                    placeholder="Votre adresse" value="{{ old('adresse', $user->profil->adresse) }}" required>
                                 @error('adresse')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -134,7 +134,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="email" id="email"
-                                    placeholder="Votre email" value="{{ $user->profil->email }}" required>
+                                    placeholder="Votre email" value="{{ old('email', $user->profil->email) }}" required>
                                 @error('email')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -148,7 +148,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <input type="number" class="form-control" name="contact" id="contact"
-                                    placeholder="Votre contact" value="{{ $user->profil->contact }}" required>
+                                    placeholder="Votre contact" value="{{ old('contact', $user->profil->contact) }}" required>
                                 @error('contact')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -162,7 +162,7 @@
                             </div>
                             <div class="col-lg-9">
                                 <textarea name="descriptionProfil" class="form-control" id="" placeholder="Description" cols="20"
-                                    rows="5">{{ $user->profil->descriptionProfil }}</textarea>
+                                    rows="5">{{ old('descriptionProfil', $user->profil->descriptionProfil) }}</textarea>
                                 @error('descriptionProfil')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror

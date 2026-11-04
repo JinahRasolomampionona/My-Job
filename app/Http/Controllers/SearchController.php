@@ -7,23 +7,34 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    //
-    public function index(Request $request) {
+    /**
+     * Recherche d'offres validées par titre/entreprise et localisation.
+     */
+    public function index(Request $request)
+    {
         $input = $request->validate([
-            'titre'=>'required|string',
-            'localisation'=>'nullable|string'
+            'titre' => 'nullable|string|max:100',
+            'localisation' => 'nullable|string|max:100',
         ]);
-        $offres = Offers::query()
-        ->when(isset($input['localisation']), function($query) use ($input) {
-            $query->where('localisation', 'like', "%{$input['localisation']}%");
-        }) 
-        ->where(function($query) use ($input) {
-            $query->where('titre', 'like', "%{$input['titre']}%")
-            ->orWhere('entreprise', 'like', "%{$input['titre']}%");
-        })
-        ->get();
-        // dd($offres);
-        return view('search.index', ['offres'=>$offres, 'input'=>$input]);
+
+        $titre = $input['titre'] ?? null;
+        $localisation = $input['localisation'] ?? null;
+
+        $offres = Offers::validees()
+            ->when($localisation, function ($query) use ($localisation) {
+                $query->where('localisation', 'like', "%{$localisation}%");
+            })
+            ->when($titre, function ($query) use ($titre) {
+                $query->where(function ($query) use ($titre) {
+                    $query->where('titre', 'like', "%{$titre}%")
+                        ->orWhere('entreprise', 'like', "%{$titre}%")
+                        ->orWhere('domaine', 'like', "%{$titre}%");
+                });
+            })
+            ->orderByDesc('is_urgent')
+            ->latest()
+            ->get();
+
+        return view('search.index', ['offres' => $offres, 'input' => $input]);
     }
-    
 }

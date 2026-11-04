@@ -6,74 +6,26 @@ Page recruteur
 @section('content-section')
 <div class="container">
     <div class="page-inner">
-        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4" data-aos="fade-down">
             <div>
-                <h3 class="fw-bold mb-4">Espace Recruteur</h3>
-                <h6 class="op-7 mb-4">Listes des statistiques</h6>
+                <h3 class="fw-bold mb-3">Espace Recruteur</h3>
+                <h6 class="op-7 mb-2">Bonjour {{ auth()->user()->name }}, voici un résumé de votre activité</h6>
             </div>
             <div class="ms-md-auto py-2 py-md-0">
-                <a href="{{ route('recruiters.offers.index') }}" class="btn btn-success btn-round me-2">Offres</a>
-                <a href="{{ route('recruiters.profils.index') }}" class="btn btn-primary btn-round">Profils</a>
+                <a href="{{ route('recruiters.offers.create') }}" class="btn btn-primary btn-round me-2">
+                    <i class="fas fa-plus me-1"></i>Publier une offre</a>
+                <a href="{{ route('recruiters.profils.index') }}" class="btn btn-success btn-round">Profils</a>
             </div>
         </div>
         <div class="row stats">
-            <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-success bubble-shadow-small">
-                                    <i class="fas fa-luggage-cart"></i>
-                                </div>
-                            </div>
-                            <div class="col col-stats">
-                                <div class="numbers">
-                                    <p class="card-category">Offres</p>
-                                    <h4 class="card-title">{{ $totalOffres }}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-primary bubble-shadow-small">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                            </div>
-                            <div class="col col-stats ms-3 ms-sm-0">
-                                <div class="numbers">
-                                    <p class="card-category">Profils</p>
-                                    <h4 class="card-title">{{ $totalProfils }}</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
-                            </div>
-                            <div class="col col-stats ms-3 ms-sm-0">
-                                <div class="numbers">
-                                    <p class="card-category">Notifications</p>
-                                    <h4 class="card-title">2</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <x-stat-card label="Mes offres" :value="$totalOffres" icon="fas fa-luggage-cart" color="success"
+                :href="route('recruiters.offers.index')" />
+            <x-stat-card label="Candidatures reçues" :value="$totalCandidatures" icon="fas fa-file-signature" color="info"
+                :href="route('recruiters.offers.index')" delay="100" />
+            <x-stat-card label="Profils disponibles" :value="$totalProfils" icon="fas fa-users" color="primary"
+                :href="route('recruiters.profils.index')" delay="200" />
+            <x-stat-card label="Notifications non lues" :value="$totalNotifications" icon="far fa-bell" color="secondary"
+                :href="route('notifications.index')" delay="300" />
         </div>
     </div>
 </div>

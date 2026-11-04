@@ -1,4 +1,4 @@
-<div class="modal" id="createFormation">
+<div class="modal fade" tabindex="-1" id="createFormation">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -52,7 +52,7 @@
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="etablissement" id="etablissement"
                                     placeholder="Etablissement" value="{{ old('etablissement') }}" required>
-                                @error('etalissement')
+                                @error('etablissement')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ProfilValide;
-use App\Mail\ProfilRefuse;
+use App\Notifications\ProfilStatutNotification;
 
 class ValidationProfilController extends Controller
 {
@@ -16,27 +13,14 @@ class ValidationProfilController extends Controller
      */
     public function index()
     {
-        //
+        // Uniquement les candidats ayant créé un profil, ceux en attente en premier
         $candidats = User::role('candidat')
-            // ->where('status', 'en attente')
+            ->whereHas('profil')
+            ->with('profil')
+            ->orderByRaw("status = ? desc", [User::STATUS_EN_ATTENTE])
+            ->latest()
             ->get();
         return view('admin.profils.index', ['candidats' => $candidats]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -44,53 +28,31 @@ class ValidationProfilController extends Controller
      */
     public function show(User $user)
     {
-        //
+        abort_unless($user->hasRole('candidat'), 404);
+
         return view('admin.profils.show', ['user' => $user]);
     }
 
     public function valider(User $user)
     {
-        $user->status = 'validee';
-        $user->save();
-
-        // Envoyer un email au candidat
-        Mail::to($user->email)->send(new ProfilValide($user));
-
-        return redirect()->back()->with('message', 'Profil validée');
+        return $this->changerStatut($user, User::STATUS_VALIDEE, 'Profil validé');
     }
 
     public function refuser(User $user)
     {
-        $user->status = 'refusee';
+        return $this->changerStatut($user, User::STATUS_REFUSEE, 'Profil refusé');
+    }
+
+    private function changerStatut(User $user, string $status, string $message)
+    {
+        abort_unless($user->hasRole('candidat'), 404);
+
+        $user->status = $status;
         $user->save();
 
-        // Envoyer un email au candidat
-        Mail::to($user->email)->send(new ProfilRefuse($user));
+        // Email + notification au candidat (remplace les anciens Mailables ProfilValide/ProfilRefuse)
+        $user->notify(new ProfilStatutNotification($status));
 
-        return redirect()->back()->with('message', 'Profil refusée');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->back()->with('success', $message.'. Le candidat a été notifié par email.');
     }
 }

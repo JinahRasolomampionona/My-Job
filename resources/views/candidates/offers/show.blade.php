@@ -20,14 +20,33 @@ Details offres
                                     <i class="fas fa-map-marker-alt"></i>{{ $offresView->localisation }} ~
                                     {{ $offresView->contrat }}
                                 </p>
-                                <p>
-                                    {!! $offresView->description !!}
-                                </p>
+                                    <div class="offer-description">{!! $offresView->description_html !!}</div>
                             </div><!-- End post content -->
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-primary mr-1">Postuler</a>
-                                <a href="#" class="btn btn-success mr-1"><i
-                                        class="fas fa-phone mr-1"></i>Contacter le recruteur</a>
+                            <div class="apply-zone" data-apply-zone>
+                                @if ($dejaPostule)
+                                    <div class="alert alert-success d-inline-flex align-items-center gap-2 mb-0">
+                                        <i class="fas fa-circle-check"></i> Vous avez déjà postulé à cette offre.
+                                    </div>
+                                @else
+                                    <form action="{{ route('candidates.offers.apply', $offresView) }}" method="post"
+                                        data-ajax="apply" class="apply-form" novalidate>
+                                        @csrf
+                                        <div class="form-feedback" data-form-message></div>
+                                        <label for="apply-message" class="form-label">Message au recruteur (facultatif)</label>
+                                        <textarea name="message" id="apply-message" rows="3" class="form-control mb-1" maxlength="1000"
+                                            placeholder="Présentez-vous en quelques mots..."></textarea>
+                                        <small class="field-error" data-error-for="message"></small>
+                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                            <button type="submit" class="btn btn-primary btn-submit">
+                                                <span class="btn-label"><i class="fas fa-paper-plane me-1"></i>Postuler</span>
+                                            </button>
+                                            @if ($offresView->user)
+                                                <a href="mailto:{{ $offresView->user->email }}?subject={{ rawurlencode('Candidature : '.$offresView->titre) }}"
+                                                    class="btn btn-success"><i class="fas fa-envelope me-1"></i>Contacter le recruteur</a>
+                                            @endif
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
                         </article>
                     </div>

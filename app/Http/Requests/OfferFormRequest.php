@@ -22,10 +22,10 @@ class OfferFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titre' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:50',
-            'entreprise' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:50',
-            'contrat' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:3|max:20',
-            'localisation' => 'required|string|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:5|max:50',
+            'titre' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|min:3|max:100',
+            'entreprise' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|min:2|max:100',
+            'contrat' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|min:3|max:20',
+            'localisation' => 'required|string|regex:/^[\pL\pN\s\'’\-.,&()\/+#]+$/u|min:2|max:100',
             'domaine' => 'required|string|min:5|max:50',
             'description' => 'required|string|min:30|max:5000',
         ];

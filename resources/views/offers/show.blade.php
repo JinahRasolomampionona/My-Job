@@ -20,30 +20,31 @@ Details offres
                                     <i class="fas fa-map-marker-alt"></i>{{ $offresView->localisation }} ~
                                     {{ $offresView->contrat }}
                                 </p>
-                                <p>
-                                    {!! $offresView->description !!}
-                                </p>
-
+                                <div class="offer-description">
+                                    {!! $offresView->description_html !!}
+                                </div>
                             </div><!-- End post content -->
-                            <div class="d-flex">
-                                {{-- <a href="{{ route('offers.edit', $offresView->id) }}" class="btn btn-primary mr-1">Editer</a>
-                                <form action="{{ route('offers.destroy', $offresView->id) }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success">Supprimer</button>
-                                </form> --}}
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#loginname" class="btn btn-primary mr-1">Postuler</a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#loginname" class="btn btn-success mr-1"><i
-                                        class="fas fa-phone mr-1"></i>Contacter le recruteur</a>
+                            <div class="d-flex flex-wrap gap-2">
+                                @guest
+                                    <a href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#loginname" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane me-1"></i>Postuler</a>
+                                    <a href="{{ route('register') }}" data-bs-toggle="modal" data-bs-target="#registername" class="btn btn-outline-primary">
+                                        Créer un compte candidat</a>
+                                @else
+                                    @role('candidat')
+                                        <a href="{{ route('candidates.offers.show', $offresView) }}" class="btn btn-primary">
+                                            <i class="fas fa-paper-plane me-1"></i>Postuler depuis mon espace</a>
+                                    @endrole
+                                    @role('admin')
+                                        <a href="{{ route('offers.edit', $offresView->id) }}" class="btn btn-primary">Éditer</a>
+                                        <form action="{{ route('offers.destroy', $offresView->id) }}" method="post"
+                                            data-confirm="Voulez-vous vraiment supprimer cette offre ?">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                                        </form>
+                                    @endrole
+                                @endguest
                             </div>
-                            <x-form-modal name="loginname">
-                                @include('auth.login')
-                            </x-form-modal>
-                            <x-form-modal name="registername">
-                                @include('auth.register')
-                            </x-form-modal>
-                            <x-form-modal name="forgotname">
-                                @include('auth.forgot-password')
-                            </x-form-modal>
                         </article>
 
                     </div>

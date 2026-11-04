@@ -1,4 +1,4 @@
-<div class="modal" id="createExperience">
+<div class="modal fade" tabindex="-1" id="createExperience">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 

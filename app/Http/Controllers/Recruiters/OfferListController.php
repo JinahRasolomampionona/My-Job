@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Recruiters;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OfferFormRequest;
 use App\Models\Offers;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Notifications\OffreSoumiseNotification;
+use App\Support\HtmlSanitizer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class OfferListController extends Controller
 {
     public function index()
     {
-        $offre = Offers::where('user_id', Auth::id())->get();
+        $offre = Offers::where('user_id', Auth::id())->withCount('candidatures')->latest()->get();
         return view('recruiters.offers.index', ['offresView' => $offre]);
     }
 
@@ -23,53 +26,73 @@ class OfferListController extends Controller
 
     public function store(OfferFormRequest $request)
     {
-
         // Enregistrement de l’offre
         $offres = new Offers();
-        $offres->titre = $request->input('titre');
-        $offres->entreprise = $request->input('entreprise');
-        $offres->contrat = $request->input('contrat');
-        $offres->localisation = $request->input('localisation');
-        $offres->domaine = $request->input('domaine');
-        $offres->description = $request->input('description');
-        $offres->status = 'en attente';
+        $this->remplir($offres, $request);
+        $offres->status = Offers::STATUS_EN_ATTENTE;
         $offres->user_id = Auth::id();
-        $offres->is_urgent = $request->has('is_urgent');
         $offres->save();
 
+        // Email + notification aux administrateurs pour validation
+        Notification::send(User::role('admin')->get(), new OffreSoumiseNotification($offres));
 
-
-        return redirect()->route('recruiters.offers.index')->with('success', 'Offre en attente de validation.');
+        return redirect()->route('recruiters.offers.index')
+            ->with('success', "Offre créée, en attente de validation par l'administrateur.");
     }
 
     public function show(Offers $offre)
     {
+        $this->verifierProprietaire($offre);
+
+        $offre->load('candidatures.user.profil');
+
         return view('recruiters.offers.show', ['offre' => $offre]);
     }
 
     public function edit(Offers $offre)
     {
+        $this->verifierProprietaire($offre);
+
         return view('recruiters.offers.edit', ['offre' => $offre]);
     }
 
     public function update(OfferFormRequest $request, Offers $offre)
     {
+        $this->verifierProprietaire($offre);
 
-        // Mise à jour de l’offre
+        // Mise à jour de l’offre : elle doit être revalidée par l'administrateur
+        $this->remplir($offre, $request);
+        $offre->status = Offers::STATUS_EN_ATTENTE;
+        $offre->save();
+
+        Notification::send(User::role('admin')->get(), new OffreSoumiseNotification($offre, true));
+
+        return redirect()->route('recruiters.offers.index')
+            ->with('success', 'Offre modifiée, elle sera de nouveau visible après validation.');
+    }
+
+    public function destroy(Offers $offre)
+    {
+        $this->verifierProprietaire($offre);
+
+        $offre->delete();
+        return redirect()->route('recruiters.offers.index')->with('success', 'Offre supprimée.');
+    }
+
+    private function remplir(Offers $offre, OfferFormRequest $request): void
+    {
         $offre->titre = $request->input('titre');
         $offre->entreprise = $request->input('entreprise');
         $offre->contrat = $request->input('contrat');
         $offre->localisation = $request->input('localisation');
         $offre->domaine = $request->input('domaine');
-        $offre->description = $request->input('description');
-        $offre->save();
-
-        return redirect()->route('recruiters.offers.index');
+        $offre->description = HtmlSanitizer::clean($request->input('description'));
+        $offre->is_urgent = $request->boolean('is_urgent');
     }
 
-    public function destroy(Offers $offre)
+    /** Un recruteur ne peut gérer que ses propres offres */
+    private function verifierProprietaire(Offers $offre): void
     {
-        $offre->delete();
-        return redirect()->route('recruiters.offers.index');
+        abort_unless((int) $offre->user_id === (int) Auth::id(), 403);
     }
 }

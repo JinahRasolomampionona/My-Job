@@ -6,8 +6,17 @@ Profil candidat
 @section('content-section')
 <div class="container profilshow">
     <div class="page-inner">
-        @foreach ($candidats as $candidat)
-        <div class="card">
+        <h3 class="fw-bold mt-3" data-aos="fade-down">Validation des profils</h3>
+        <p class="text-muted">Les profils en attente sont affichés en premier.</p>
+        @forelse ($candidats as $candidat)
+        @php
+            [$statutLabel, $statutClass] = match ($candidat->status) {
+                'validee' => ['Validé', 'bg-success'],
+                'refusee' => ['Refusé', 'bg-danger'],
+                default => ['En attente', 'bg-warning text-dark'],
+            };
+        @endphp
+        <div class="card" data-aos="fade-up">
             <div class="card-body">
                 <div class="container">
                     <div class="row">
@@ -16,8 +25,8 @@ Profil candidat
                                 <span>{{ $candidat->profil->id }}</span>
                             </div>
                         </div>
-                        {{-- @dump($candidat) --}}
                         <div class="col-lg-8 pl-2">
+                            <span class="badge {{ $statutClass }} mb-1">{{ $statutLabel }}</span>
                             <h3 class="text-capitalize"><a
                                     href="{{ route('admin.profils.show', ['user' => $candidat]) }}"><span
                                         class="call">
@@ -40,7 +49,11 @@ Profil candidat
                 </div>
             </div>
         </div>
-        @endforeach
+        @empty
+        <div class="row">
+            <x-empty-state icon="fa-id-card" message="Aucun candidat n'a encore créé de profil." />
+        </div>
+        @endforelse
     </div>
 </div>
 @endsection

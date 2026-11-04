@@ -1,5 +1,5 @@
-<div class="modal" id="{{$name}}">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade auth-modal" id="{{ $name }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -12,12 +12,11 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 d-flex align-items-center connexion-img">
+                        <div class="col-lg-6 col-md-6 d-none d-md-flex align-items-center connexion-img">
                             <img src="{{ Vite::asset('resources/images/connexion.jpg') }}" alt="">
                         </div>
                         <div class="col-lg-6 col-md-6 d-flex justify-content-center align-items-center flex-column cnx-content">
-                            {{-- @if(session('user-register')) <span class="alert alert-success">(session('user-register'))</span>@endif --}}
-                            <h2>Se connecter ou Créer votre compte</h2>
+                            <h2>Se connecter ou Créer votre compte</h2>
                             {{ $slot }}
                         </div>
                     </div>

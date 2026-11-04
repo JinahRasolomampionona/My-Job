@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -26,10 +28,35 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'role' => 'candidat',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
+    }
+
+    /**
+     * Donne un rôle (colonne role + rôle spatie) à l'utilisateur créé.
+     */
+    public function withRole(string $role): static
+    {
+        return $this->state(fn () => ['role' => $role])
+            ->afterCreating(fn (User $user) => $user->assignRole(Role::findOrCreate($role, 'web')));
+    }
+
+    public function admin(): static
+    {
+        return $this->withRole('admin');
+    }
+
+    public function recruteur(): static
+    {
+        return $this->withRole('recruteur');
+    }
+
+    public function candidat(): static
+    {
+        return $this->withRole('candidat');
     }
 
     /**

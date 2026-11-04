@@ -2,93 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfferFormRequest;
 use App\Models\Offers;
-use Illuminate\Http\Request;
+use App\Support\HtmlSanitizer;
+use Illuminate\Support\Facades\Auth;
 
 class OffersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Liste publique : uniquement les offres validées.
      */
     public function index()
     {
-        //
-        $offres = Offers::all();
+        $offres = Offers::validees()->orderByDesc('is_urgent')->latest()->get();
         return view('offers.index', ['offresView' => $offres]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        return view('offers.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-        $offres = new Offers();
-        $offres->titre = $request->input('titre');
-        $offres->entreprise = $request->input('entreprise');
-        $offres->contrat = $request->input('contrat');
-        $offres->localisation = $request->input('localisation');
-        $offres->domaine = $request->input('domaine');
-        $offres->description = $request->input('description');
-        $offres->save();
-        // Mail::to($request->user())->send(new GmailEmail);
-        return redirect()->route('offers.index');
-    }
-
-    /**
-     * Display the specified resource.
+     * Détail public d'une offre validée.
      */
     public function show(string $id)
     {
-        //
-        $offres = Offers::find($id);
+        $offres = Offers::validees()->findOrFail($id);
         return view('offers.show', ['offresView' => $offres]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // --- Les méthodes ci-dessous sont réservées à l'administrateur (voir routes/web.php) ---
+
+    public function create()
+    {
+        return view('offers.create');
+    }
+
+    public function store(OfferFormRequest $request)
+    {
+        $offres = new Offers();
+        $this->remplir($offres, $request);
+        $offres->user_id = Auth::id();
+        // Créée par l'administrateur : publiée directement
+        $offres->status = Offers::STATUS_VALIDEE;
+        $offres->save();
+
+        return redirect()->route('offers.index')->with('success', 'Offre créée.');
+    }
+
     public function edit(string $id)
     {
-        //
-        $offres = Offers::find($id);
+        $offres = Offers::findOrFail($id);
         return view('offers.edit', ['offresView' => $offres]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(OfferFormRequest $request, string $id)
     {
-        //
-        $offres = Offers::find($id);
-        $offres->titre = $request->input('titre');
-        $offres->entreprise = $request->input('entreprise');
-        $offres->contrat = $request->input('contrat');
-        $offres->localisation = $request->input('localisation');
-        $offres->domaine = $request->input('domaine');
-        $offres->description = $request->input('description');
+        $offres = Offers::findOrFail($id);
+        $this->remplir($offres, $request);
         $offres->save();
-        return redirect()->route('offers.index');
+
+        return redirect()->route('offers.index')->with('success', 'Offre modifiée.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
-        $offres = Offers::find($id);
-        $offres ->destroy($offres->id);
-        return redirect()->route('offers.index');
+        Offers::findOrFail($id)->delete();
+
+        return redirect()->route('offers.index')->with('success', 'Offre supprimée.');
+    }
+
+    private function remplir(Offers $offre, OfferFormRequest $request): void
+    {
+        $offre->titre = $request->input('titre');
+        $offre->entreprise = $request->input('entreprise');
+        $offre->contrat = $request->input('contrat');
+        $offre->localisation = $request->input('localisation');
+        $offre->domaine = $request->input('domaine');
+        $offre->description = HtmlSanitizer::clean($request->input('description'));
+        $offre->is_urgent = $request->boolean('is_urgent');
     }
 }

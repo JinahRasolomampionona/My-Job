@@ -1,4 +1,4 @@
-<div class="modal" id="editFormation-{{ $formation->id }}">
+<div class="modal fade" tabindex="-1" id="editFormation-{{ $formation->id }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
